@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import br.usjt.projeto.semestral.DAO.ChamadoDao;
 import br.usjt.projeto.semestral.Model.Chamado;
+import br.usjt.projeto.semestral.Model.ListaDeChamados;
 /**
  * 
  * @author Bruni
@@ -78,14 +79,14 @@ public class ChamadoService {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public List<Chamado> selecionaChamadosAbertos() throws SQLException, IOException
+	public List<ListaDeChamados> selecionaChamadosAbertos() throws SQLException, IOException
 	{
 		return dao.selecionarTodosOsChamadosEmAberto();
 	}
 	
 	private String montaURL()
 	{
-		String url = "http://localhost:8080/SistemaChamado/rest/chamados/3";
+		String url = "http://localhost:8080/SistemaChamado/rest/chamados/2";
 	
 		return url;
 		
@@ -96,6 +97,7 @@ public class ChamadoService {
 		RestTemplate template =  new RestTemplate();
 		Chamado resultado  = template.getForObject(montaURL(), Chamado.class);
 		resultado.setId(resultado.getId()+1);
+		
 		resultado.setDataInicio(new Date(System.currentTimeMillis()));
 		System.out.println(resultado);
 		

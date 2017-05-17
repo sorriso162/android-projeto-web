@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.usjt.projeto.semestral.Model.Chamado;
+import br.usjt.projeto.semestral.Model.ListaDeChamados;
 
 @Repository
 public class ChamadoDao {
@@ -101,13 +102,16 @@ EntityManager manager;
 		return manager.createQuery("select c from Chamado c").getResultList();
 	}
 	
-	public List<Chamado> selecionarTodosOsChamadosEmAberto() throws SQLException, IOException
+	public List<ListaDeChamados> selecionarTodosOsChamadosEmAberto() throws SQLException, IOException
 	{
-		Chamado chamado = new Chamado();
+		ListaDeChamados chamado = new ListaDeChamados();
 		chamado.setStatus("aberto");
-		String query = "Select c.id, c.descricao, c.dataInicio, c.status, u.nome from chamado c Inner Join usuario u where status = 'aberto'";
-		ArrayList<Chamado> lista = new ArrayList<>();
-		Chamado chamado1;
+		String query = "Select c.id, c.descricao, c.dateInicio,c.dataFim, c.status, u.nome,s.nome"
+				+ " from chamado c Inner Join usuario u on c.idUsuario = u.id"
+				+ " inner join solucionador s on c.idSolucionador = s.id"
+				+ "   where status = 'aberto'";
+		ArrayList<ListaDeChamados> lista = new ArrayList<>();
+		ListaDeChamados chamado1;
 		
 		try(PreparedStatement pst = conn.prepareStatement(query);
 				ResultSet rs = pst.executeQuery();)
@@ -115,11 +119,14 @@ EntityManager manager;
 					while(rs.next())
 					{
 						
-						chamado1 = new Chamado();
-						chamado1.setId(rs.getInt("id"));
-						chamado1.setDescricao(rs.getString("descricao"));
-						chamado1.setDataInicio(rs.getDate("dataInicio"));
-						chamado.setStatus(rs.getString("status"));
+						chamado1 = new ListaDeChamados();
+						chamado1.setId(rs.getInt("c.id"));
+						chamado1.setDescricao(rs.getString("c.descricao"));
+						chamado1.setDateInicio(rs.getDate("c.dateInicio"));
+						chamado1.setDataFim(rs.getDate("c.dataFim"));
+						chamado1.setStatus(rs.getString("c.status"));
+						chamado1.setUsuario(rs.getString("u.nome"));
+						chamado1.setSolucionador(rs.getString("s.nome"));
 						if(chamado1.getStatus().equals(chamado.getStatus())){
 						lista.add(chamado1);
 						}

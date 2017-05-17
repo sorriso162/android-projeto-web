@@ -59,7 +59,7 @@ public class UsuarioService {
 	 * @return
 	 * @throws IOException
 	 */
-	public List<Usuario> selecionarTodosOsUsuarios(Usuario usuario) throws IOException
+	public List<Usuario> selecionarTodosOsUsuarios() throws IOException
 	{
 		return dao.listarUsuarios();
 	}

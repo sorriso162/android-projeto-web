@@ -14,15 +14,30 @@ public class Chamado {
 	@Id
 	private int id;
 	private int idUsuario;
+	private int idSolucionador;
 	private String descricao;
 	private String status;
 	private String tipo;
 	private Date   dateInicio;
-	private Date   dateFim;
+	private Date   dataFim;
 	
 	
 	
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getIdSolucionador() {
+		return idSolucionador;
+	}
+	/**
+	 * 
+	 * @param idSolucionador
+	 */
+	public void setIdSolucionador(int idSolucionador) {
+		this.idSolucionador = idSolucionador;
+	}
 	
 	/**
 	 * 
@@ -99,7 +114,7 @@ public class Chamado {
 	 * @return
 	 */
 	public Date getDateFim() {
-		return dateFim;
+		return dataFim;
 	}
 	/**
 	 * 
@@ -107,7 +122,7 @@ public class Chamado {
 	 */
 	
 	public void setDateFim(Date dataFim) {
-		this.dateFim = dataFim;
+		this.dataFim = dataFim;
 	}
 	/**
 	 * 
@@ -126,7 +141,7 @@ public class Chamado {
 	@Override
 	public String toString() {
 		return "Chamado [id=" + id + ", idUsuario=" + idUsuario + ", descricao=" + descricao + ", status=" + status
-				+ ", tipo=" + tipo + ", dataInicio=" + dateInicio + ", dataFim=" + dateFim + "]";
+				+ ", tipo=" + tipo + ", dataInicio=" + dateInicio + ", dataFim=" + dataFim + "]";
 	}
 	
 	
