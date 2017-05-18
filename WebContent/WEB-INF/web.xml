@@ -24,6 +24,8 @@
 	<session-config>
 		<session-timeout>1</session-timeout>
 	</session-config>
+
+ 
 	<!-- configura UTF-8 como padrao -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>

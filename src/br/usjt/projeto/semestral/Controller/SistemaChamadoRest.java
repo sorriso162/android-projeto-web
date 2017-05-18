@@ -6,23 +6,27 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.usjt.projeto.semestral.Model.Chamado;
+import br.usjt.projeto.semestral.Model.Usuario;
 import br.usjt.projeto.semestral.Service.ChamadoService;
+import br.usjt.projeto.semestral.Service.UsuarioService;
 @Transactional
 @RestController
 public class SistemaChamadoRest {
 	
 	private ChamadoService cs;
+	private UsuarioService us;
 	@Autowired
-	public SistemaChamadoRest(ChamadoService cs)
+	public SistemaChamadoRest(ChamadoService cs,UsuarioService us)
 	{
 		this.cs = cs;
+		this.us = us;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="rest/chamados")
@@ -32,20 +36,31 @@ public class SistemaChamadoRest {
 		return lista;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="rest/chamados/{id}")
-	public @ResponseBody Chamado selecionaChamado(@PathVariable("id") int id)
+	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/user")
+	public Usuario selecionaChamado( @RequestBody Usuario usuario) throws IOException
 	{
-		Chamado chamado = new Chamado();
-		chamado.setId(id);
-		 return cs.selecionaChamado(chamado);
+		
+
+		if(us.validarUsuario(usuario))
+		{
+			return us.buscaCpf(usuario);
+		}else{
+		
+		
+		return null;}
+		
+		  
 	}
-	@RequestMapping(method=RequestMethod.DELETE, value="rest/removeChamados/{id}")
-	public  @ResponseBody Chamado apagaChamado(@PathVariable("id") int id)
+	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/login")
+	public Usuario login(@RequestBody Usuario usuario) throws IOException
 	{
-		Chamado chamado = new Chamado();
-		chamado.setId(id);
-		 cs.removeChamado(chamado);
-		return null;
+		us.validarUsuario(usuario);
+		Usuario usuario1 = usuario;
+		
+		
+		return usuario1;
 	}
+	
+	
 
 }

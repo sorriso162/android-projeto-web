@@ -1,6 +1,7 @@
 package br.usjt.projeto.semestral.Service;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,12 @@ import br.usjt.projeto.semestral.Model.Solucionador;
 
 
 @Service
-public class SolucionadorService {
+public class SolucionadorService implements Serializable{
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 private SolucionadorDao dao;
 @Autowired
 public SolucionadorService(SolucionadorDao dao)

@@ -1,6 +1,9 @@
 package br.usjt.projeto.semestral.Model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 /**
  * 
@@ -10,6 +13,7 @@ import javax.persistence.Id;
 @Entity
 public class Usuario 
 {
+	
 	@Id
 	private int id;
 	private String nome;
@@ -101,7 +105,7 @@ public class Usuario
 	@Override
 	public String toString() 
 	{
-		return "Administrador [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", tipo=" + tipo + "]";
+		return "Usuario [id=" + id + ", nome=" + nome + ", , senha=" + senha + ",cpf=" + cpf + ", tipo=" + tipo + "]";
 	}
 	
 	

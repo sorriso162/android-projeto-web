@@ -1,27 +1,31 @@
 package br.usjt.projeto.semestral.Service;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import br.usjt.projeto.semestral.DAO.ChamadoDao;
 import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ListaDeChamados;
+
 /**
  * 
+ * 
  * @author Bruni
+ * @param <Usuario>
  *
  */
 @Service
-public class ChamadoService {
-
+public class ChamadoService<Usuario> implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ChamadoDao dao;
 	@Autowired
 	/**
@@ -31,6 +35,7 @@ public class ChamadoService {
 	public ChamadoService(ChamadoDao dao)
 	{
 		this.dao = dao;
+		
 	}
 	/**
 	 * 
@@ -84,26 +89,7 @@ public class ChamadoService {
 		return dao.selecionarTodosOsChamadosEmAberto();
 	}
 	
-	private String montaURL()
-	{
-		String url = "http://localhost:8080/SistemaChamado/rest/chamados/2";
 	
-		return url;
-		
-	}
-	@Transactional
-	public Chamado buscaRest()
-	{
-		RestTemplate template =  new RestTemplate();
-		Chamado resultado  = template.getForObject(montaURL(), Chamado.class);
-		resultado.setId(resultado.getId()+1);
-		
-		resultado.setDataInicio(new Date(System.currentTimeMillis()));
-		System.out.println(resultado);
-		
-		criarChamado(resultado);
-		return resultado;
-	}
 	
 	
 	

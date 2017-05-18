@@ -54,11 +54,13 @@ public class SistemaChamadoLoginController {
 	@Transactional
 	@RequestMapping("/")
 	String index() throws SQLException, IOException
-	{
-		List<ListaDeChamados> listadeChamados = cs.selecionaChamadosAbertos();
-		for(int i = 0 ; i < listadeChamados.size(); i++ ){
-		System.out.print(listadeChamados.get(i).toString());}
-	return "a" ;
+	{	
+		Usuario usuario = new Usuario();
+		
+		usuario.setCpf("123456789012345");
+		usuario.setSenha("senha");
+	Usuario lista =	us.buscaRest(usuario);
+	return "a"+lista ;
 	}
 	/**
 	 * 

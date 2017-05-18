@@ -55,6 +55,20 @@ public class UsuarioDao {
 	}
 	/**
 	 * 
+	 * @param cpf
+	 * @return
+	 */
+	public Usuario selecionarUsuarioPorCpf(Usuario usuario)
+	{
+		String sqlSelect = "select u from Usuario u where u.cpf = :cpf";
+		Query query = manager.createQuery(sqlSelect);
+		query.setParameter("cpf", usuario.getCpf());
+		Object lista = query.getSingleResult();
+	
+		return (Usuario) lista;
+	}
+	/**
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -70,7 +84,7 @@ public class UsuarioDao {
 	 */
 	public boolean ValidaUsuario(Usuario usuario)
 	{
-		String sqlSelect = "select u from usuario u where u.cpf = :cpf  u.senha = :senha";
+		String sqlSelect = "select u from Usuario u where u.cpf = :cpf and u.senha  = :senha";
 		Query query = manager.createQuery(sqlSelect);
 		query.setParameter("cpf", usuario.getCpf());
 		query.setParameter("senha", usuario.getSenha());
