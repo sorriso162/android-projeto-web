@@ -27,7 +27,7 @@ public class AdministradorDao {
 	 */
 	public boolean ValidaUsuario(Administrador adm)
 	{
-		String sqlSelect = "select u from Administrador u where u.cpf = :cpf  u.senha = :senha";
+		String sqlSelect = "select u from Administrador u where u.cpf = :cpf and u.senha = :senha";
 		Query query = manager.createQuery(sqlSelect);
 		query.setParameter("cpf", adm.getCpf());
 		query.setParameter("senha", adm.getSenha());

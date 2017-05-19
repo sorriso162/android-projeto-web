@@ -111,7 +111,7 @@ public class UsuarioService implements Serializable{
 		// converte objetos Java para JSON e retorna JSON como String
 		String json = gson.toJson(usuario);
 		try{
-		String l  = "http://localhost:8080/SistemaChamado/rest/chamados/user";
+		String l  = "http://localhost:8080/SistemaChamado/rest";
 		URL url = new URL(l);
 		 HttpURLConnection conn  = (HttpURLConnection) url.openConnection();
 		 

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,17 +39,17 @@ public class SistemaChamadoRest {
 		lista = cs.selecionaTodosOsChamados();
 		return lista;
 	}
-	
+	@Consumes("Content-Type: application/json")
+	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/user")
-	public Usuario selecionaChamado( @RequestBody Usuario usuario) throws IOException
-	{
-		
-
+	public Usuario selecionaChamado(@RequestBody Usuario usuario) throws IOException
+	{		
+		System.out.println(usuario.toString());
 		if(us.validarUsuario(usuario))
 		{
 			return us.buscaCpf(usuario);
 		}else{
-		
+		System.out.println("nao existe");
 		
 		return null;}
 		
