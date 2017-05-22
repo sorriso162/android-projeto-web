@@ -66,10 +66,10 @@ public class SistemaChamadoLoginController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("login_form")
+	@RequestMapping("login")
 	String loginForm()
 	{
-		return "login_form";
+		return "login";
 	}
 	/**
 	 * 
