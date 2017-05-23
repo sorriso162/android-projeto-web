@@ -45,6 +45,8 @@ EntityManager manager;
 	public void criarChamado(Chamado chamado)
 	{
 		chamado.setDataInicio(new Date(System.currentTimeMillis()));
+		chamado.setIdSolucionador(0);
+		System.out.println(chamado.toString());
 		manager.persist(chamado);
 	}
 	/**

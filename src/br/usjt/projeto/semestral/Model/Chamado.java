@@ -2,8 +2,12 @@ package br.usjt.projeto.semestral.Model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Null;
 /**
  * 
  * @author Bruni
@@ -12,13 +16,15 @@ import javax.persistence.Id;
 @Entity
 public class Chamado {
 	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int idUsuario;
 	private int idSolucionador;
 	private String descricao;
 	private String status;
 	private String tipo;
-	private Date   dateInicio;
+	private Date   dataInicio;
 	private Date   dataFim;
 	
 	
@@ -100,14 +106,14 @@ public class Chamado {
 	 * @return
 	 */
 	public Date getDataInicio() {
-		return dateInicio;
+		return dataInicio;
 	}
 	/**
 	 * 
 	 * @param dataInicio
 	 */
-	public void setDataInicio(Date dateInicio) {
-		this.dateInicio = dateInicio;
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 	/**
 	 * 
@@ -140,13 +146,9 @@ public class Chamado {
 	}
 	@Override
 	public String toString() {
-		return "Chamado [id=" + id + ", idUsuario=" + idUsuario + ", descricao=" + descricao + ", status=" + status
-				+ ", tipo=" + tipo + ", dataInicio=" + dateInicio + ", dataFim=" + dataFim + "]";
+		return "Chamado [id=" + id + ", idUsuario=" + idUsuario + ", idSolucionador=" + idSolucionador + ", descricao="
+				+ descricao + ", status=" + status + ", tipo=" + tipo + ", dataInicio=" + dataInicio + ", dataFim="
+				+ dataFim + "]";
 	}
-	
-	
-	
-	
-	
 	
 }

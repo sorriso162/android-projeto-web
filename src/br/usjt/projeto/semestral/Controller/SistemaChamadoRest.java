@@ -42,7 +42,7 @@ public class SistemaChamadoRest {
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/user")
-	public Usuario selecionaChamado(@RequestBody Usuario usuario) throws IOException
+	public Usuario LoginUsuario(@RequestBody Usuario usuario) throws IOException
 	{		
 		System.out.println(usuario.toString());
 		if(us.validarUsuario(usuario))
@@ -55,16 +55,15 @@ public class SistemaChamadoRest {
 		
 		  
 	}
-	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/login")
-	public Usuario login(@RequestBody Usuario usuario) throws IOException
-	{
-		us.validarUsuario(usuario);
-		Usuario usuario1 = usuario;
-		
-		
-		return usuario1;
+	@Consumes("Content-Type: application/json")
+	@Produces("Content-Type: application/json")
+	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/criarChamado")
+	public void inserirChamado(@RequestBody Chamado chamado) throws IOException
+	{		
+		System.out.println(chamado.toString());
+		cs.criarChamado(chamado);
+			  
 	}
-	
 	
 
 }
