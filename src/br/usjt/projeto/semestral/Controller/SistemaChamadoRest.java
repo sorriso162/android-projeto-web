@@ -1,12 +1,11 @@
 package br.usjt.projeto.semestral.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +31,32 @@ public class SistemaChamadoRest {
 		this.cs = cs;
 		this.us = us;
 	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="rest/chamados")
-	public @ResponseBody List<Chamado> listagem() throws IOException {
+	@SuppressWarnings("unchecked")
+	@Consumes("Content-Type: application/json")
+	@Produces("Content-Type: application/json")
+	@RequestMapping(method=RequestMethod.POST, value="rest/lista")
+	public @ResponseBody List<Chamado> listagemAberta() throws IOException, SQLException {
 		List<Chamado> lista = null;
-		lista = cs.selecionaTodosOsChamados();
+		System.out.println("entrou aqui");
+		lista = cs.selecionaChamadosAbertos();
 		return lista;
 	}
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
+<<<<<<< HEAD
 	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/user")
 	public Usuario LoginUsuario(@RequestBody Usuario usuario) throws IOException
+=======
+	@RequestMapping(method=RequestMethod.POST, value="rest/criar")
+	public void InsereChamado(@RequestBody Chamado chamado) throws IOException, SQLException {
+		
+		cs.criarChamado(chamado);
+	}
+	@Consumes("Content-Type: application/json")
+	@Produces("Content-Type: application/json")
+	@RequestMapping(method=RequestMethod.POST, value="rest/user")
+	public Usuario selecionaChamado(@RequestBody Usuario usuario) throws IOException
+>>>>>>> 042cde7b10cc1b3a948710f76d571c7cd42aa3a8
 	{		
 		System.out.println(usuario.toString());
 		if(us.validarUsuario(usuario))
@@ -57,6 +71,7 @@ public class SistemaChamadoRest {
 	}
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
+<<<<<<< HEAD
 	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/criarChamado")
 	public void inserirChamado(@RequestBody Chamado chamado) throws IOException
 	{		
@@ -65,5 +80,17 @@ public class SistemaChamadoRest {
 			  
 	}
 	
+=======
+	@RequestMapping(method=RequestMethod.POST, value="rest/update")
+	public void atualiza(@RequestBody Chamado chamado) throws IOException
+	{		System.out.println("chegou aqui1");
+		
+		cs.atualizaChamado(chamado);
+		  
+	}
+	
+	
+	
+>>>>>>> 042cde7b10cc1b3a948710f76d571c7cd42aa3a8
 
 }

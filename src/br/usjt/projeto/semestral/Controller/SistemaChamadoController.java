@@ -1,6 +1,7 @@
 package br.usjt.projeto.semestral.Controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -186,9 +187,10 @@ public class SistemaChamadoController {
 	 * @param chamado
 	 * @return
 	 * @throws IOException
+	 * @throws SQLException 
 	 */
 	@RequestMapping("criar_chamado")
-	public String criarChamado(Chamado chamado) throws IOException
+	public String criarChamado(Chamado chamado) throws IOException, SQLException
 	{
 		cs.criarChamado(chamado);
 		return "meus_chamados";
@@ -197,9 +199,10 @@ public class SistemaChamadoController {
 	 * 
 	 * @param chamado
 	 * @return
+	 * @throws SQLException 
 	 */
 	@RequestMapping("atualizar_chamado")
-	public String atualizarChamado(Chamado chamado)
+	public String atualizarChamado(Chamado chamado) throws SQLException
 	{
 		cs.criarChamado(chamado);
 		return "chamado_informacao";

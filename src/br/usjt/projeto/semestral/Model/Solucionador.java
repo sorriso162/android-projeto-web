@@ -1,10 +1,12 @@
 package br.usjt.projeto.semestral.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 @Entity
 public class Solucionador {
 	@Id
+	@Column(name="idSolucionador")
 	private int id;
 	private String nome;
 	private String cpf;

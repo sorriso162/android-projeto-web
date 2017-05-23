@@ -7,7 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.validation.constraints.Null;
+=======
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+>>>>>>> 042cde7b10cc1b3a948710f76d571c7cd42aa3a8
 /**
  * 
  * @author Bruni
