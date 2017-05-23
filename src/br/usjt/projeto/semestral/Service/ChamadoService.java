@@ -40,8 +40,9 @@ public class ChamadoService<Usuario> implements Serializable{
 	/**
 	 * 
 	 * @param chamado
+	 * @throws SQLException 
 	 */
-	public void criarChamado(Chamado chamado)
+	public void criarChamado(Chamado chamado) throws SQLException
 	{
 		dao.criarChamado(chamado);
 	}
@@ -56,8 +57,9 @@ public class ChamadoService<Usuario> implements Serializable{
 	/**
 	 * 
 	 * @param chamado
+	 * @throws IOException 
 	 */
-	public void atualizaChamado(Chamado chamado)
+	public void atualizaChamado(Chamado chamado) throws IOException
 	{
 		dao.atualizarChamado(chamado);
 	}

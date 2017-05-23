@@ -41,27 +41,51 @@ EntityManager manager;
 	/**
 	 * 
 	 * @param chamado
+	 * @throws SQLException 
 	 */
-	public void criarChamado(Chamado chamado)
+	
+	public void criarChamado(Chamado chamado) throws SQLException
 	{
+		
+		
+		String query = "INSERT INTO chamado (descricao,dataFim,dateInicio,status,tipo,idUsuario) VALUES(?,?,?,?,?,?)";
 		chamado.setDataInicio(new Date(System.currentTimeMillis()));
-		manager.persist(chamado);
+		try(PreparedStatement pst = conn.prepareStatement(query);
+				)
+		{
+			pst.setString(1, chamado.getDescricao());
+			pst.setDate(2, chamado.getDateFim());
+			pst.setDate(3, chamado.getDataInicio());
+			pst.setString(4, chamado.getStatus());
+			pst.setString(5, chamado.getTipo());
+			pst.setInt(6, chamado.getIdUsuario());
+			pst.executeUpdate();
+		}
 	}
 	/**
 	 * 
 	 * @param chamado
+	 * @throws IOException 
 	 */
-	public void atualizarChamado(Chamado chamado)
+	public void atualizarChamado(Chamado chamado) throws IOException
 	{
+		System.out.println("chegou aqui2");
 		if(chamado.getTipo() == "fechado"){
-			
+			String query = "UPDATE FROM chamado (DateFim) values (?)";
 			chamado.setDateFim(new Date(System.currentTimeMillis()));
-			manager.merge(chamado);
-			}else
+			try(PreparedStatement pst = conn.prepareStatement(query);)
 				{
-					manager.merge(manager.find(Chamado.class, chamado.getId()));
-				}
+				System.out.println("chegou aqui3");
+					pst.setDate(1, chamado.getDateFim());
+					pst.executeUpdate();
+				}catch(SQLException e){
+					e.printStackTrace();
+					throw new IOException(e);
+						}
 		}
+			
+		}
+		
 	/**
 	 * 
 	 * @param chamado
@@ -104,11 +128,11 @@ EntityManager manager;
 	
 	public List<ListaDeChamados> selecionarTodosOsChamadosEmAberto() throws SQLException, IOException
 	{
+		System.out.println("entrou aqui2");
 		ListaDeChamados chamado = new ListaDeChamados();
 		chamado.setStatus("aberto");
-		String query = "Select c.id, c.descricao, c.dateInicio,c.dataFim, c.status, u.nome,s.nome"
+		String query = "Select c.id, c.descricao, c.dateInicio,c.dataFim, c.status, u.nome"
 				+ " from chamado c Inner Join usuario u on c.idUsuario = u.id"
-				+ " inner join solucionador s on c.idSolucionador = s.id"
 				+ "   where status = 'aberto'";
 		ArrayList<ListaDeChamados> lista = new ArrayList<>();
 		ListaDeChamados chamado1;
@@ -117,8 +141,8 @@ EntityManager manager;
 				ResultSet rs = pst.executeQuery();)
 				{
 					while(rs.next())
-					{
-						
+					{	
+						System.out.println("entrou aqui3");
 						chamado1 = new ListaDeChamados();
 						chamado1.setId(rs.getInt("c.id"));
 						chamado1.setDescricao(rs.getString("c.descricao"));
@@ -126,7 +150,7 @@ EntityManager manager;
 						chamado1.setDataFim(rs.getDate("c.dataFim"));
 						chamado1.setStatus(rs.getString("c.status"));
 						chamado1.setUsuario(rs.getString("u.nome"));
-						chamado1.setSolucionador(rs.getString("s.nome"));
+						
 						if(chamado1.getStatus().equals(chamado.getStatus())){
 						lista.add(chamado1);
 						}
