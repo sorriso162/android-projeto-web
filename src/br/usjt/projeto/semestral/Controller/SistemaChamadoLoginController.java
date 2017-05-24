@@ -53,7 +53,7 @@ public class SistemaChamadoLoginController {
 	 */
 	@Transactional
 	@RequestMapping("/")
-	String index() throws SQLException, IOException
+	String index() 
 	{	
 		return "login";
 	}
@@ -66,6 +66,18 @@ public class SistemaChamadoLoginController {
 	{
 		return "login";
 	}
+	@RequestMapping("pagina_inicial")
+	public String inicial()
+	{
+		return "Inicio";
+	}
+	@RequestMapping("usuario_menu")
+	String usuarioMenu( HttpSession session, Usuario usuario) throws SQLException, IOException
+	{
+		
+		session.setAttribute("meusChamados", cs.meusChamados(usuario));
+		return "usuarioMenu";
+	}
 	/**
 	 * 
 	 * @param usuario
@@ -73,23 +85,36 @@ public class SistemaChamadoLoginController {
 	 * @param model
 	 * @return
 	 * @throws IOException
+	 * @throws SQLException 
 	 */
 	@RequestMapping("fazer_login")
-	public String fazerLogin(Usuario usuario,Solucionador solucionador,Administrador adm, HttpSession session, Model model) throws IOException
+	public String fazerLogin(Usuario usuario,Solucionador solucionador,Administrador adm, HttpSession session, Model model) throws IOException, SQLException
 	{
 		System.out.println(usuario.toString());
 	if(us.validarUsuario(usuario))
 	{
 		System.out.println("Entrou aqui");
-		session.setAttribute("usuario",us.selecionarusuario(usuario));
-		System.out.println(usuario);
+		Usuario usuario1 = new Usuario();
+		usuario1 = us.buscaCpf(usuario);
+		session.setAttribute("usuario",usuario1);
 		
-		return "redirect:usuario_menu";
 		
-		}else{
-			return "redirect:login";
+		return "redirect:pagina_inicial";
+		
+	}else if(as.login(adm)){
+			Administrador adm1 = new Administrador();
+			adm1 = as.buscaPorCpf(adm);
+			session.setAttribute("usuario", adm1);
+			return "redirect:pagina_inicial";
+			}else{
+				System.out.println("usuario e senha invalidos");
+				return "redirect:login";
 			}
 	}
-	
+	@RequestMapping("logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "login";
+	}
 	
 }

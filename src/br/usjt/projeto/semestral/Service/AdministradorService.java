@@ -31,4 +31,9 @@ public boolean login(Administrador adm)
 {
 	return dao.ValidaUsuario(adm);
 }
+
+public Administrador buscaPorCpf(Administrador adm)
+{
+	return dao.selecionarAdministradorPorCpf(adm);
+}
 }

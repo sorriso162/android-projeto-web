@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import br.usjt.projeto.semestral.DAO.ChamadoDao;
 import br.usjt.projeto.semestral.Model.Chamado;
+import br.usjt.projeto.semestral.Model.ChamadoView;
 import br.usjt.projeto.semestral.Model.ListaDeChamados;
+import br.usjt.projeto.semestral.Model.MeusChamados;
+import br.usjt.projeto.semestral.Model.Usuario;
 
 /**
  * 
@@ -20,7 +23,7 @@ import br.usjt.projeto.semestral.Model.ListaDeChamados;
  *
  */
 @Service
-public class ChamadoService<Usuario> implements Serializable{
+public class ChamadoService implements Serializable{
 	
 	/**
 	 * 
@@ -41,8 +44,9 @@ public class ChamadoService<Usuario> implements Serializable{
 	 * 
 	 * @param chamado
 	 * @throws SQLException 
+	 * @throws IOException 
 	 */
-	public void criarChamado(Chamado chamado) throws SQLException
+	public void criarChamado(Chamado chamado) throws SQLException, IOException
 	{
 		dao.criarChamado(chamado);
 	}
@@ -90,9 +94,15 @@ public class ChamadoService<Usuario> implements Serializable{
 	{
 		return dao.selecionarTodosOsChamadosEmAberto();
 	}
+	public List<MeusChamados> meusChamados(Usuario usuario) throws SQLException, IOException
+	{
+		return dao.meusChamados(usuario);
+	}
 	
-	
-	
+	public ChamadoView chamadoView(ChamadoView chamado) throws SQLException, IOException
+	{
+		return dao.selecionaMeuChamado(chamado);
+	}
 	
 	
 	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.usjt.projeto.semestral.Model.Chamado;
+import br.usjt.projeto.semestral.Model.ListaDeChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
 import br.usjt.projeto.semestral.Service.ChamadoService;
 import br.usjt.projeto.semestral.Service.UsuarioService;
@@ -35,8 +36,8 @@ public class SistemaChamadoRest {
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.POST, value="rest/lista")
-	public @ResponseBody List<Chamado> listagemAberta() throws IOException, SQLException {
-		List<Chamado> lista = null;
+	public @ResponseBody List<ListaDeChamados> listagemAberta() throws IOException, SQLException {
+		List<ListaDeChamados> lista = null;
 		System.out.println("entrou aqui");
 		lista = cs.selecionaChamadosAbertos();
 		return lista;

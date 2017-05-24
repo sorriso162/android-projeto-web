@@ -2,15 +2,19 @@ package br.usjt.projeto.semestral.Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.usjt.projeto.semestral.Model.Chamado;
+import br.usjt.projeto.semestral.Model.ChamadoView;
 import br.usjt.projeto.semestral.Model.Solucionador;
 import br.usjt.projeto.semestral.Model.Usuario;
 import br.usjt.projeto.semestral.Service.AdministradorService;
@@ -189,22 +193,43 @@ public class SistemaChamadoController {
 	 * @throws IOException
 	 * @throws SQLException 
 	 */
+	@RequestMapping("fazer_chamado")
+	public String fazerChamadoView()
+	{
+		return "NovaChamada";
+	}
+	@RequestMapping("insere_erro_modal")
+	public String insereErro()
+	{
+		return "ModalErroIsereFinalDeSemana";
+	}
 	@RequestMapping("criar_chamado")
 	public String criarChamado(Chamado chamado) throws IOException, SQLException
 	{
+		
+		Calendar cal = Calendar.getInstance();
+		
+		if (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7){
+			return"redirect:insere_erro_modal";
+		}else{
+		chamado.setIdSolucionador(1);
+		System.out.println("criando chamado"+chamado.toString());
 		cs.criarChamado(chamado);
-		return "meus_chamados";
+		return "redirect:fazer_chamado";
+		}
 	}
 	/**
 	 * 
 	 * @param chamado
 	 * @return
 	 * @throws SQLException 
+	 * @throws IOException 
 	 */
 	@RequestMapping("atualizar_chamado")
-	public String atualizarChamado(Chamado chamado) throws SQLException
+	public String atualizarChamado(Chamado chamado) throws SQLException, IOException
 	{
-		cs.criarChamado(chamado);
+		
+		cs.atualizaChamado(chamado);
 		return "chamado_informacao";
 	}
 	/**
@@ -238,5 +263,19 @@ public class SistemaChamadoController {
 	{
 		cs.selecionaTodosOsChamados();
 		return "todos_os_chamados";
+	}
+	
+	@RequestMapping("chamadoView")
+	public String chamadoView( ChamadoView chamado,HttpSession session) throws SQLException, IOException
+	{
+		System.out.println(chamado.toString());
+		System.out.println(cs.chamadoView(chamado));
+		session.setAttribute("view", cs.chamadoView(chamado));
+		return "redirect:chamado_view";
+	}
+	@RequestMapping("chamado_view")
+	public String meuChamadoView()
+	{
+		return "ChamadoView";
 	}
 }

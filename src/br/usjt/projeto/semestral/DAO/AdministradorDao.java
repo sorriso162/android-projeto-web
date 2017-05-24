@@ -9,13 +9,22 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.usjt.projeto.semestral.Model.Administrador;
+import br.usjt.projeto.semestral.Model.Usuario;
 
 @Repository
 public class AdministradorDao {
 	@PersistenceContext
 	EntityManager manager;
 	
-	
+	public Administrador selecionarAdministradorPorCpf(Administrador adm)
+	{
+		String sqlSelect = "select u from Administrador u where u.cpf = :cpf";
+		Query query = manager.createQuery(sqlSelect);
+		query.setParameter("cpf", adm.getCpf());
+		Object lista = query.getSingleResult();
+		System.out.println(lista);
+		return (Administrador) lista;
+	}
 	public Administrador selecionarAdministrador(int id)
 	{
 		return manager.find(Administrador.class, id);
