@@ -18,7 +18,7 @@
 	<c:set var="administrador" value="administrador" />
 	<c:if  test="${tipoUsuario == administrador}" >
     <a href="criar_solucionador">criar solucionador</a>
-    <a href="criar_usuario">Criar usuario</a>
+    <a href="cria_usuario">Criar usuario</a>
     </c:if>
     <a href="fazer_chamado">FAzer Chamado</a>
     <form action="usuario_menu" method="post">

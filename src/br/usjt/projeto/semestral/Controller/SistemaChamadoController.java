@@ -61,6 +61,14 @@ public class SistemaChamadoController {
 		
 		us.criarUsuario(usuario);
 		return "lista_de_usuarios";
+	}public String listaDeUsuarios()
+	{
+		return "ListaDeUsuario";
+	}
+	@RequestMapping("cria_usuario")
+	public String criaUsuario()
+	{
+		return "criarUsuario";
 	}
 	/**
 	 * 
