@@ -43,10 +43,6 @@ public class SistemaChamadoRest {
 	}
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
-<<<<<<< HEAD
-	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/user")
-	public Usuario LoginUsuario(@RequestBody Usuario usuario) throws IOException
-=======
 	@RequestMapping(method=RequestMethod.POST, value="rest/criar")
 	public void InsereChamado(@RequestBody Chamado chamado) throws IOException, SQLException {
 		
@@ -56,7 +52,6 @@ public class SistemaChamadoRest {
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.POST, value="rest/user")
 	public Usuario selecionaChamado(@RequestBody Usuario usuario) throws IOException
->>>>>>> 042cde7b10cc1b3a948710f76d571c7cd42aa3a8
 	{		
 		System.out.println(usuario.toString());
 		if(us.validarUsuario(usuario))
@@ -64,33 +59,18 @@ public class SistemaChamadoRest {
 			return us.buscaCpf(usuario);
 		}else{
 		System.out.println("nao existe");
-		
-		return null;}
-		
-		  
+		return null;
+		}
 	}
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
-<<<<<<< HEAD
-	@RequestMapping(method=RequestMethod.POST, value="rest/chamados/criarChamado")
-	public void inserirChamado(@RequestBody Chamado chamado) throws IOException
-	{		
-		System.out.println(chamado.toString());
-		cs.criarChamado(chamado);
-			  
-	}
-	
-=======
 	@RequestMapping(method=RequestMethod.POST, value="rest/update")
 	public void atualiza(@RequestBody Chamado chamado) throws IOException
 	{		System.out.println("chegou aqui1");
-		
-		cs.atualizaChamado(chamado);
-		  
+		cs.atualizaChamado(chamado);  
 	}
 	
 	
 	
->>>>>>> 042cde7b10cc1b3a948710f76d571c7cd42aa3a8
 
 }

@@ -50,11 +50,11 @@ EntityManager manager;
 		
 		String query = "INSERT INTO chamado (descricao,dataFim,dateInicio,status,tipo,idUsuario) VALUES(?,?,?,?,?,?)";
 		chamado.setDataInicio(new Date(System.currentTimeMillis()));
-<<<<<<< HEAD
+
 		chamado.setIdSolucionador(0);
 		System.out.println(chamado.toString());
 		manager.persist(chamado);
-=======
+
 		try(PreparedStatement pst = conn.prepareStatement(query);
 				)
 		{
@@ -66,7 +66,7 @@ EntityManager manager;
 			pst.setInt(6, chamado.getIdUsuario());
 			pst.executeUpdate();
 		}
->>>>>>> 042cde7b10cc1b3a948710f76d571c7cd42aa3a8
+
 	}
 	/**
 	 * 

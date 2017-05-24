@@ -55,12 +55,7 @@ public class SistemaChamadoLoginController {
 	@RequestMapping("/")
 	String index() throws SQLException, IOException
 	{	
-		Usuario usuario = new Usuario();
-		
-		usuario.setCpf("123456789012345");
-		usuario.setSenha("senha");
-	Usuario lista =	us.buscaRest(usuario);
-	return "a"+lista ;
+		return "login";
 	}
 	/**
 	 * 
@@ -82,26 +77,18 @@ public class SistemaChamadoLoginController {
 	@RequestMapping("fazer_login")
 	public String fazerLogin(Usuario usuario,Solucionador solucionador,Administrador adm, HttpSession session, Model model) throws IOException
 	{
+		System.out.println(usuario.toString());
 	if(us.validarUsuario(usuario))
 	{
+		System.out.println("Entrou aqui");
 		session.setAttribute("usuario",us.selecionarusuario(usuario));
 		System.out.println(usuario);
 		
 		return "redirect:usuario_menu";
 		
-		}else if(ss.validarUsuario(solucionador))
-		{
-			session.setAttribute("solucionador", ss.selecionarusuario(solucionador));
-			System.out.println(usuario);
-		}else if(as.login(adm))
-		{
-			session.setAttribute("adm", as.selecionaAdm(adm));
-			System.out.println(adm);
-		}else
-		{
-			return "redrect:login_form";
-		}
-	return "redrect:login_form";
+		}else{
+			return "redirect:login";
+			}
 	}
 	
 	
