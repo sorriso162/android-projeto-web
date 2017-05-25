@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 /**
  * 
@@ -15,7 +16,8 @@ public class Usuario
 {
 	
 	@Id
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idUsuario;
 	private String nome;
 	private String cpf;
 	private String tipo;
@@ -27,7 +29,7 @@ public class Usuario
 	 */
 	public int getId() 
 	{
-		return id;
+		return idUsuario;
 	}
 	/**
 	 * 
@@ -35,7 +37,7 @@ public class Usuario
 	 */
 	public void setId(int id) 
 	{
-		this.id = id;
+		this.idUsuario = id;
 	}
 	/**
 	 * 
@@ -105,7 +107,7 @@ public class Usuario
 	@Override
 	public String toString() 
 	{
-		return "Usuario [id=" + id + ", nome=" + nome + ", , senha=" + senha + ",cpf=" + cpf + ", tipo=" + tipo + "]";
+		return "Usuario [id=" + idUsuario + ", nome=" + nome + ", , senha=" + senha + ",cpf=" + cpf + ", tipo=" + tipo + "]";
 	}
 	
 	

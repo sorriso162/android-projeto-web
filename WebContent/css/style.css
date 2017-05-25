@@ -1,0 +1,93 @@
+body
+{
+	background-color:white;
+}
+botton
+{
+
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  weight:50%;
+  border: 1%;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  
+ 
+   box-sizing: border-box;
+ }
+ input {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  font-family:  sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 1%;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+/--------------
+#menu ul{
+	list-style-type: none;
+	margin: 0 0 20 0;
+	padding: 20px 20px;
+	background-color: #3a5399;
+	text-align: right;
+	color: #fff;
+	
+}
+
+.nav>li>a
+{
+	background-color: rgb(58, 83, 153);
+    padding: 25px;
+    color: #fff;
+    margin-top: 25px;
+	float: left;
+	left:30%;
+}
+
+a{
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+a:hover{
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+	text-decoration: none;
+}
+.menu-lat{
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(58, 83, 153);
+}
+
+.menu-lat ul li a{
+	color: #00000;
+}
+
+
+
+footer{
+    background-color: rgb(58, 83, 153);
+    padding: 25px;
+    color: #fff;
+    margin-top: 25px;
+}
+
+footer p{
+	margin: 0;
+}
+

@@ -2,12 +2,15 @@ package br.usjt.projeto.semestral.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Entity
 public class Solucionador {
 	@Id
 	@Column(name="idSolucionador")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idSolucionador;
 	private String nome;
 	private String cpf;
 	private String tipo;
@@ -19,7 +22,7 @@ public class Solucionador {
 	 */
 	public int getId() 
 	{
-		return id;
+		return idSolucionador;
 	}
 	/**
 	 * 
@@ -27,7 +30,7 @@ public class Solucionador {
 	 */
 	public void setId(int id) 
 	{
-		this.id = id;
+		this.idSolucionador = id;
 	}
 	/**
 	 * 
@@ -97,7 +100,7 @@ public class Solucionador {
 	@Override
 	public String toString() 
 	{
-		return "Administrador [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", tipo=" + tipo + "]";
+		return "Administrador [id=" + idSolucionador + ", nome=" + nome + ", cpf=" + cpf + ", tipo=" + tipo + "]";
 	}
 	
 }

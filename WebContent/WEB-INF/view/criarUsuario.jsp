@@ -6,7 +6,6 @@
 <label>NOME DO USUARIO:</label><input type="text" name="nome"><br>
 <label>CPF:</label><input type="text" name="cpf"><br>
 <label>SENHA:</label><input type="text" name="senha"><br>
-<label>TIPO:</label><input type="text" name="tipo"><br>
 <button type="submit">Cadastrar</button><br>
 </form>
 <c:import url="footer.jsp" />

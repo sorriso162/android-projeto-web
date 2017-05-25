@@ -10,16 +10,16 @@
 			<td>SENHA</td>
 			<td>TIPO</td>
 		</tr>
-	<c:forEach var="meusChamados" items="${meusChamados}">
+	<c:forEach var="listaDeUsuairos" items="${listaDeUsuairos}">
 				<tr>
-				<td>${meusChamados.id}</td>
-		<td><form action="chamadoView" method="post">
-		<input type="hidden" id="id" name="id" value="${meusChamados.id}">
-						<button type="submit" class="span6 btn-link">${meusChamados.descricao}</button>
+				<td>${listaDeUsuairos.id}</td>
+		<td><form action="usuarioView" method="post">
+		<input type="hidden" id="id" name="id" value="${listaDeUsuairos.id}">
+						<button type="submit" class="span6 btn-link">${listaDeUsuairos.nome}</button>
 					</form>
-				<td>${meusChamados.dateInicio}</td>
-				<td>${meusChamados.dataFim}</td>
-				<td>${meusChamados.status}</td>
+				<td>${listaDeUsuairos.cpf}</td>
+				<td>${listaDeUsuairos.senha}</td>
+				<td>${listaDeUsuairos.tipo}</td>
 				
 				</tr>
 				

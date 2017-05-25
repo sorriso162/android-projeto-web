@@ -13,6 +13,7 @@ public class ChamadoView {
 	 private String tipo;
 	 private String nomeSolucionador;
 	 private String nomeUsuario;
+	 
 	public int getId() {
 		return id;
 	}

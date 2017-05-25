@@ -13,8 +13,8 @@ public class MeusChamados {
 	private String status;
 	private String tipo;
 	private String solucionador;
-	private Date   dateInicio;
-	private Date   dataFim;
+	private String   dateInicio;
+	private String   dataFim;
 	
 	
 	
@@ -66,16 +66,16 @@ public class MeusChamados {
 	public void setSolucionador(String solucionador) {
 		this.solucionador = solucionador;
 	}
-	public Date getDateInicio() {
+	public String getDateInicio() {
 		return dateInicio;
 	}
-	public void setDateInicio(Date dateInicio) {
+	public void setDateInicio(String dateInicio) {
 		this.dateInicio = dateInicio;
 	}
-	public Date getDataFim() {
+	public String getDataFim() {
 		return dataFim;
 	}
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
 	@Override

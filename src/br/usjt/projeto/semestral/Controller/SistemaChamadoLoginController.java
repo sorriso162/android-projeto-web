@@ -74,7 +74,7 @@ public class SistemaChamadoLoginController {
 	@RequestMapping("usuario_menu")
 	String usuarioMenu( HttpSession session, Usuario usuario) throws SQLException, IOException
 	{
-		
+		System.out.println("usuario"+usuario.toString());
 		session.setAttribute("meusChamados", cs.meusChamados(usuario));
 		return "usuarioMenu";
 	}

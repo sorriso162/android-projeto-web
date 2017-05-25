@@ -3,6 +3,7 @@ package br.usjt.projeto.semestral.Service;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ChamadoView;
 import br.usjt.projeto.semestral.Model.ListaDeChamados;
 import br.usjt.projeto.semestral.Model.MeusChamados;
+import br.usjt.projeto.semestral.Model.TodosOsChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
 
 /**
@@ -45,8 +47,9 @@ public class ChamadoService implements Serializable{
 	 * @param chamado
 	 * @throws SQLException 
 	 * @throws IOException 
+	 * @throws ParseException 
 	 */
-	public void criarChamado(Chamado chamado) throws SQLException, IOException
+	public void criarChamado(Chamado chamado) throws SQLException, IOException, ParseException
 	{
 		dao.criarChamado(chamado);
 	}
@@ -79,8 +82,9 @@ public class ChamadoService implements Serializable{
 	/**
 	 * 
 	 * @return
+	 * @throws IOException 
 	 */
-	public List<Chamado> selecionaTodosOsChamados()
+	public List<TodosOsChamados> selecionaTodosOsChamados() throws IOException
 	{
 		return dao.SelecionarTodosChamados();
 	} 

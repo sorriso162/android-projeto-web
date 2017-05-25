@@ -26,6 +26,7 @@ public class UsuarioDao {
 	 */
 	public void incluirUsuario(Usuario usuario)
 	{
+		usuario.setTipo("usuario");
 		manager.persist(usuario);
 	}
 	/**
@@ -74,7 +75,7 @@ public class UsuarioDao {
 	@SuppressWarnings("unchecked")
 	public List<Usuario> listarUsuarios()
 	{
-		return manager.createQuery("select l from usuario l").getResultList();
+		return manager.createQuery("select l from Usuario l").getResultList();
 		
 	}
 	/**

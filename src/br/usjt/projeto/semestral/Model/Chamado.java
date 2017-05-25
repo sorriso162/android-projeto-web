@@ -1,13 +1,12 @@
 package br.usjt.projeto.semestral.Model;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * 
@@ -20,13 +19,15 @@ public class Chamado {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private int idUsuario;
+
 	private int idSolucionador;
 	private String descricao;
 	private String status;
 	private String tipo;
-	private Date   dataInicio;
-	private Date   dataFim;
+	private String dataInicio;
+	private String dataFim;
 	
 	
 	
@@ -106,21 +107,21 @@ public class Chamado {
 	 * 
 	 * @return
 	 */
-	public Date getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 	/**
 	 * 
 	 * @param dataInicio
 	 */
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 	/**
 	 * 
 	 * @return
 	 */
-	public Date getDateFim() {
+	public String getDateFim() {
 		return dataFim;
 	}
 	/**
@@ -128,7 +129,7 @@ public class Chamado {
 	 * @param dataFim
 	 */
 	
-	public void setDateFim(Date dataFim) {
+	public void setDateFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
 	/**

@@ -2,6 +2,7 @@ package br.usjt.projeto.semestral.Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,7 @@ public class SistemaChamadoController {
 		this.ss = ss;
 		this.as = as;
 	}
-	//parte DO administrador ******************************************************************************
+	//parte DO administrador Com usuario ******************************************************************************
 	/**
 	 * 
 	 * @param usuario
@@ -55,21 +56,67 @@ public class SistemaChamadoController {
 	 * @throws IOException
 	 */
 	//administrador criar usuario      ------------------------------------------------------------------------------
-	@RequestMapping("criar_usuario")
-	public String criarUsuario(Usuario usuario) throws IOException
-	{
+		@RequestMapping("criar_usuario")
+		public String criarUsuario(Usuario usuario) throws IOException
+		{
+			
+			us.criarUsuario(usuario);
+			return "redirect:lista_de_usuarios";
+		}
 		
-		us.criarUsuario(usuario);
-		return "lista_de_usuarios";
-	}public String listaDeUsuarios()
-	{
-		return "ListaDeUsuario";
-	}
-	@RequestMapping("cria_usuario")
-	public String criaUsuario()
-	{
-		return "criarUsuario";
-	}
+		@RequestMapping("cria_usuario")
+		public String criaUsuario()
+		{
+			return "criarUsuario";
+		}
+		/**
+		 * 
+		 * @param usuario
+		 * @return
+		 * @throws IOException
+		 */
+		//administrador apaga usuario   ------------------------------------------------------------------------------
+		@RequestMapping("apagar_usuario")
+		public String apagarUsuario(Usuario usuario) throws IOException
+		{
+			us.removerUsuario(usuario);
+			return "lista_de_usuario";
+		}
+		/**
+		 * 
+		 * @param usuario
+		 * @return
+		 * @throws IOException
+		 */
+		@RequestMapping("usuarioView")
+		public String informacaoUsuario(Usuario usuario,HttpSession session) throws IOException
+		{
+			session.setAttribute("view", us.selecionarusuario(usuario));
+			return "redirect:usuario_View";
+			
+		}
+		@RequestMapping("usuario_View")
+		public String usuerView(){
+			return "UsuarioView";
+		}
+		
+		//administrador lista todos os usuarios------------------------------------------------------------------------------
+		@RequestMapping("lista_de_usuarios")
+		public String listarUsuarios(HttpSession session) throws IOException
+		{
+			
+			System.out.println("Todos Os usuairos:  "+ us.selecionarTodosOsUsuarios());
+			session.setAttribute("listaDeUsuairos", us.selecionarTodosOsUsuarios());
+			return "ListaDeUsuario";
+		}
+		//administrador atualizar usuario      ------------------------------------------------------------------------------
+		@RequestMapping("atualizar_usuario")
+		public String atualizaUsuario(Usuario usuario) throws IOException
+		{
+			us.atualizarUsuario(usuario);
+			return "usuario_informacao";
+		}
+		//parte DO administrador Com Solucionador ******************************************************************************
 	/**
 	 * 
 	 * @param usuario
@@ -78,25 +125,18 @@ public class SistemaChamadoController {
 	 */
 	//administrador cria solucionador  ------------------------------------------------------------------------------
 	@RequestMapping("criar_solucionador")
-	public String criarSolucionador(Solucionador usuario) throws IOException
+	public String criarSolucionador( Solucionador usuario) throws IOException
 	{
 		
 		ss.criarSolucionador(usuario);
-		return "lista_de_solucionador";
+		return "redirect:lista_solucionador";
 	}
-	/**
-	 * 
-	 * @param usuario
-	 * @return
-	 * @throws IOException
-	 */
-	//administrador apaga usuario   ------------------------------------------------------------------------------
-	@RequestMapping("apagar_usuario")
-	public String apagarUsuario(Usuario usuario) throws IOException
+	@RequestMapping("cria_solucionador")
+	public String criaSolucionador()
 	{
-		us.removerUsuario(usuario);
-		return "lista_de_usuario";
+		return "criaSolucionador";
 	}
+	
 	/**
 	 * 
 	 * @param usuario
@@ -110,83 +150,38 @@ public class SistemaChamadoController {
 		ss.removerSolucionador(usuario);
 		return "lista_de_solucionador";
 	}
-	/**
-	 * 
-	 * @param usuario
-	 * @return
-	 * @throws IOException
-	 */
-	// administrador seleciona usuario  ------------------------------------------------------------------------------
-	@RequestMapping("selecionar_usuario")
-	public String selecionarUsuario(Usuario usuario,HttpSession session) throws IOException
-	{
-		System.out.println(us.selecionarusuario(usuario));
-		session.setAttribute("Verusuario", us.selecionarusuario(usuario));
-		return "usuario_informacao";
-	}
-	/**
-	 * 
-	 * @param usuario
-	 * @return
-	 * @throws IOException
-	 */
+	
+	
+	
 	//administrador seleciona solucionador ------------------------------------------------------------------------------
-	@RequestMapping("selecionar_solucionador")
+	@RequestMapping("solucionadorView")
 	public String selecionarSolucionador(Solucionador usuario, HttpSession session) throws IOException
 	{
 		System.out.println("Solucionador: "+ ss.selecionarusuario(usuario));
-		session.setAttribute("Versolucionador", ss.selecionarusuario(usuario));
+		session.setAttribute("view", ss.selecionarusuario(usuario));
 		
-		return "solucionador_informacao";
+		return "redirect:solucionador_informacao";
 	}
-	/**
-	 * 
-	 * @param usuario
-	 * @return
-	 * @throws IOException
-	 */
-	//administrador lista todos os usuarios------------------------------------------------------------------------------
-	@RequestMapping("lista_de_usuarios")
-	public String listarUsuarios(HttpSession session) throws IOException
+	@RequestMapping("solucionador_informacao")
+	public String solucionadorView()
 	{
-		
-		System.out.println("Todos Os usuairos:  "+ us.selecionarTodosOsUsuarios());
-		session.setAttribute("listaDeUsuairos", us.selecionarTodosOsUsuarios());
-		return "todos_os_usuarios";
+		return "SolucionadorView";
 	}
-	/**
-	 * 
-	 * @param usuario
-	 * @return
-	 * @throws IOException
-	 */
+	
 	//administrador lista solucionadores
-	@RequestMapping("lista_de_solucionadores")
+	@RequestMapping("lista_solucionador")
 	public String listarSolucionadores(HttpSession session) throws IOException
 	{
 		System.out.println(ss.selecionarTodosOsUsuarios());
-		session.setAttribute("listDeSolucionadores", ss.selecionarTodosOsUsuarios());
-		return "todos_os_solucionadores";
+		session.setAttribute("listaDeSolucionadores", ss.selecionarTodosOsUsuarios());
+		return "redirect:todos_os_solucionadores";
 	}
-	/**
-	 * 
-	 * @param usuario
-	 * @return
-	 * @throws IOException
-	 */
-	//administrador atualizar usuario      ------------------------------------------------------------------------------
-	@RequestMapping("atualizar_usuario")
-	public String atualizaUsuario(Usuario usuario) throws IOException
+	@RequestMapping("todos_os_solucionadores")
+	public String todosSolucionadores()
 	{
-		us.atualizarUsuario(usuario);
-		return "usuario_informacao";
+		return"ListaDeSolucionadores";
 	}
-	/**
-	 * 
-	 * @param usuario
-	 * @return
-	 * @throws IOException
-	 */
+	 
 	@RequestMapping("atualizar_solucionador")
 	public String atualizaSolucionador(Solucionador usuario) throws IOException
 	{
@@ -212,15 +207,13 @@ public class SistemaChamadoController {
 		return "ModalErroIsereFinalDeSemana";
 	}
 	@RequestMapping("criar_chamado")
-	public String criarChamado(Chamado chamado) throws IOException, SQLException
+	public String criarChamado(Chamado chamado) throws IOException, SQLException, ParseException
 	{
 		
 		Calendar cal = Calendar.getInstance();
-		
 		if (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7){
 			return"redirect:insere_erro_modal";
 		}else{
-		chamado.setIdSolucionador(1);
 		System.out.println("criando chamado"+chamado.toString());
 		cs.criarChamado(chamado);
 		return "redirect:fazer_chamado";
@@ -265,14 +258,25 @@ public class SistemaChamadoController {
 	/**
 	 * 
 	 * @return
+	 * @throws IOException 
 	 */
-	@RequestMapping("listar_chamados")
-	public String listarChamados()
+	@RequestMapping("todos_os_chamados")
+	public String todosOsChamados()
 	{
-		cs.selecionaTodosOsChamados();
-		return "todos_os_chamados";
+		return "listaDeChamados";
 	}
-	
+	@RequestMapping("lista_chamado")
+	public String listarChamados(HttpSession session) throws IOException
+	{
+		System.out.println("sessao"+cs.selecionaTodosOsChamados());
+		session.setAttribute("todosChamados",cs.selecionaTodosOsChamados());
+		return "redirect:todos_os_chamados";
+	}
+	@RequestMapping("chamado_view")
+	public String meuChamadoView()
+	{
+		return "ChamadoView";
+	}
 	@RequestMapping("chamadoView")
 	public String chamadoView( ChamadoView chamado,HttpSession session) throws SQLException, IOException
 	{
@@ -281,9 +285,5 @@ public class SistemaChamadoController {
 		session.setAttribute("view", cs.chamadoView(chamado));
 		return "redirect:chamado_view";
 	}
-	@RequestMapping("chamado_view")
-	public String meuChamadoView()
-	{
-		return "ChamadoView";
-	}
+	
 }

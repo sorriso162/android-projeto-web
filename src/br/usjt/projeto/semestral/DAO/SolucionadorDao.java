@@ -18,6 +18,7 @@ public class SolucionadorDao {
 
 	public void incluirSolucionador(Solucionador usuario)
 	{
+		usuario.setTipo("solucionador");
 		manager.persist(usuario);
 	}
 	/**
@@ -52,12 +53,12 @@ public class SolucionadorDao {
 	@SuppressWarnings("unchecked")
 	public List<Solucionador> listarSolucionador()
 	{
-		return manager.createQuery("select l from solucionador l").getResultList();
+		return manager.createQuery("select l from Solucionador l").getResultList();
 		
 	}
 	public boolean ValidaUsuario(Solucionador usuario)
 	{
-		String sqlSelect = "select u from solucionador u where u.cpf = :cpf  u.senha = :senha";
+		String sqlSelect = "select u from Solucionador u where u.cpf = :cpf  u.senha = :senha";
 		Query query = manager.createQuery(sqlSelect);
 		query.setParameter("cpf", usuario.getCpf());
 		query.setParameter("senha", usuario.getSenha());

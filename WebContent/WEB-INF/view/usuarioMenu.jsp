@@ -24,7 +24,6 @@
 				<td>${meusChamados.dateInicio}</td>
 				<td>${meusChamados.dataFim}</td>
 				<td>${meusChamados.status}</td>
-				
 				</tr>
 				</c:if>
 	</c:forEach>

@@ -9,29 +9,51 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <p>NOME DO USUARIO :${usuario.nome}</p>
-    <!-- Bootstrap -->
-    
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <p>Menu do Usuario</p>
-    <c:set var="tipoUsuario" value="${usuario.tipo}" />
-	<c:set var="administrador" value="administrador" />
-	<c:if  test="${tipoUsuario == administrador}" >
-    <a href="criar_solucionador">criar solucionador</a>
-    <a href="cria_usuario">Criar usuario</a>
-    </c:if>
-    <a href="fazer_chamado">FAzer Chamado</a>
-    <form action="usuario_menu" method="post">
-    <input type="hidden" value="${usuario.id}" name="id"/>
-    <button type="submit" class="span6 btn-link">meus chamados</button>
-    </form>
-    <a href="pagina_inicial">inicio</a>
-    <a href="logout">logout</a> 
     
+    <link href="css/style.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+  
+    <div class="container-fluid"> 
     
+		<div class="row-fluid">
+		
+			<div class="span3">
+				
+				<div class="menu-lat">
+					<h3 position="center" font-color="white">LOGADO COMO: ${usuario.nome}</h3>
+					<ul class="nav nav-list">
+    						<li><a href="pagina_inicial">inicio</a></li>
+   						    <c:set var="tipoUsuario" value="${usuario.tipo}" />
+							<c:set var="administrador" value="administrador" />
+							<c:set var="usuario1" value="usuario" />
+							
+							<c:if  test="${tipoUsuario == administrador}" >
+    							<li><a href="cria_solucionador">Adicionar solucionador</a></li>
+    							<li><a href="cria_usuario">Adicionar usuario</a></li>
+    							<li><a href="lista_solucionador">Todos os Solucionadores</a></li>
+    							<li><a href="lista_de_usuarios">Todos os Usuarios</a></li>
+    							<li><a href="lista_chamado">Todos os Chamados</a></li>
+    							
+    						</c:if>
+    						<c:if test="${tipoUsuario == usuario1}">
+    							<li><a href="fazer_chamado">fazer Chamado</a></li>
+    						<form class="navbar-form navbar-left"action="usuario_menu" method="post">
+    						<input   type="hidden" value="${usuario.id}" name="id"/>
+    					<li><a><input type="submit" class="span6 btn-link"value="meus chamados"></a></li>
+   				 </form>
+   				 			</c:if>
+    							
+    							<li><a href="logout">logout</a></li> 
+   						 </ul>
+				</div>
+				<!--/.well -->
+			</div>
+			<!--/span-->
+		<div class="span9">
+  
 </head>
 <body>

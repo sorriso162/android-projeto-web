@@ -2,6 +2,7 @@ package br.usjt.projeto.semestral.Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -45,7 +46,7 @@ public class SistemaChamadoRest {
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.POST, value="rest/criar")
-	public void InsereChamado(@RequestBody Chamado chamado) throws IOException, SQLException {
+	public void InsereChamado(@RequestBody Chamado chamado) throws IOException, SQLException, ParseException {
 		
 		cs.criarChamado(chamado);
 	}
