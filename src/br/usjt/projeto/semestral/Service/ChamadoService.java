@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,14 @@ public class ChamadoService implements Serializable{
 	 */
 	public void criarChamado(Chamado chamado) throws SQLException, IOException, ParseException
 	{
+		SimpleDateFormat a = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		 Calendar cal = Calendar.getInstance();
+		 System.out.println(a.format(cal.getTime()));
+		 String dataFormatada = (a.format(cal.getTime()));
+		 
+		chamado.setDataInicio(dataFormatada);
+		chamado.setStatus("aberto");
+		System.out.println(chamado.toString());
 		dao.criarChamado(chamado);
 	}
 	/**

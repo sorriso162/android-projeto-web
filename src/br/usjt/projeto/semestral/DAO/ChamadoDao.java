@@ -56,14 +56,7 @@ EntityManager manager;
 	public void criarChamado(Chamado chamado) throws SQLException, IOException, ParseException
 	{
 		
-		SimpleDateFormat a = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		 Calendar cal = Calendar.getInstance();
-		 System.out.println(a.format(cal.getTime()));
-		 String dataFormatada = (a.format(cal.getTime()));
-		 
-		chamado.setDataInicio(dataFormatada);
-		chamado.setStatus("aberto");
-		System.out.println(chamado.toString());
+		
 		String sqlInsert = " insert into chamado (idUsuario,id,descricao,dataInicio,dataFim,tipo,status) values(?,?,?,?,?,?,?)";
 		try(PreparedStatement stm = conn.prepareStatement(sqlInsert);)
 		{
