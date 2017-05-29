@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import br.usjt.projeto.semestral.Model.Administrador;
 import br.usjt.projeto.semestral.Model.Solucionador;
 
 
@@ -56,6 +57,17 @@ public class SolucionadorDao {
 		return manager.createQuery("select l from Solucionador l").getResultList();
 		
 	}
+
+	public Solucionador selecionarSolucionadorPorCpf(Solucionador solucionador)
+	{
+		String sqlSelect = "select u from Solucionador u where u.cpf = :cpf";
+		Query query = manager.createQuery(sqlSelect);
+		query.setParameter("cpf", solucionador.getCpf());
+		Object lista = query.getSingleResult();
+		System.out.println(lista);
+		return (Solucionador) lista;
+	}
+	
 	public boolean ValidaUsuario(Solucionador usuario)
 	{
 		String sqlSelect = "select u from Solucionador u where u.cpf = :cpf  u.senha = :senha";

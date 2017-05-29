@@ -36,20 +36,24 @@
           <a class="navbar-brand" href="pagina_inicial"><span class="label label-success text-capitalize">Sistema de Chamados</span></a>
         </div>
     <div class="collapse navbar-collapse" id="example-1">		
-			<c:if  test="${tipoUsuario == administrador}" >
+			
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastrar<span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<c:if  test="${tipoUsuario == administrador}" >
 	                		<li><a href="cria_solucionador">Solucionador</a></li>
 							<li><a href="cria_usuario">Usuário</a></li>
+							</c:if>
 							<li><a href="fazer_chamado">Chamado</a></li>
 						</ul>
 					</li>
 	                <li><button type="button" class="btn btn-success navbar-btn btn-circle"><a id="logout" href="logout">Logout</a></button></li>
 				</ul>
+				<c:if  test="${tipoUsuario == administrador}" >
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listar<span class="caret"></span></a>
 						<ul class="dropdown-menu">
+								
 	    							<li><a href="lista_solucionador">Todos os Solucionadores</a></li>
 	    							<li><a href="lista_de_usuarios">Todos os Usuarios</a></li>
 	    							<li><a href="lista_chamado">Todos os Chamados</a></li>
@@ -57,27 +61,14 @@
 					</li>
 				</ul>
 			</c:if>
-			
+			<c:if test="${tipoUsuario == usuario1}">
+	<form class="btn btn-success navbar-btn btn-circle"action="usuario_menu" method="post">
+		<input   type="hidden" value="${usuario.id}" name="id"/>
+		<input type="submit" id="logout" class="span6 btn-link"value="meus chamados">
+  	</form>
+</c:if>
 		</div><!-- /.navbar-collapse -->
 		
       </div>
     </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<c:if test="${tipoUsuario == usuario1}">
-	<form class="navbar-form navbar-left"action="usuario_menu" method="post">
-		<input   type="hidden" value="${usuario.id}" name="id"/>
-		<input type="submit" class="span6 btn-link"value="meus chamados">
-  	</form>
-</c:if>

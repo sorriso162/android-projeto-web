@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.usjt.projeto.semestral.DAO.SolucionadorDao;
+import br.usjt.projeto.semestral.Model.Administrador;
 import br.usjt.projeto.semestral.Model.Solucionador;
 
 
@@ -83,5 +84,8 @@ public boolean validarUsuario(Solucionador usuario) throws IOException
  	return dao.ValidaUsuario(usuario);
 	
 }
-
+public Solucionador buscaPorCpf(Solucionador solucionador)
+{
+	return dao.selecionarSolucionadorPorCpf(solucionador);
+}
 }

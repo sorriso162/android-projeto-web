@@ -101,15 +101,19 @@ public class SistemaChamadoLoginController {
 		
 		return "redirect:pagina_inicial";
 		
-	}else if(as.login(adm)){
+		}else if(as.login(adm)){
 			Administrador adm1 = new Administrador();
 			adm1 = as.buscaPorCpf(adm);
 			session.setAttribute("usuario", adm1);
 			return "redirect:pagina_inicial";
-			}else{
-				System.out.println("usuario e senha invalidos");
-				return "redirect:login";
-			}
+				}else if(ss.validarUsuario(solucionador)){
+						solucionador = ss.buscaPorCpf(solucionador);
+						session.setAttribute("usuario", solucionador);
+						return "redirect:pagina_inicial";
+					}else{
+						System.out.println("usuario e senha invalidos");
+						return "redirect:login";
+						}
 	}
 	@RequestMapping("logout")
 	public String logout(HttpSession session){
