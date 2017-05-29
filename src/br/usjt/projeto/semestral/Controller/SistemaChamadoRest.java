@@ -36,7 +36,7 @@ public class SistemaChamadoRest {
 	@SuppressWarnings("unchecked")
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
-	@RequestMapping(method=RequestMethod.POST, value="rest/lista")
+	@RequestMapping(method=RequestMethod.GET, value="rest/lista")
 	public @ResponseBody List<ListaDeChamados> listagemAberta() throws IOException, SQLException {
 		List<ListaDeChamados> lista = null;
 		System.out.println("entrou aqui");

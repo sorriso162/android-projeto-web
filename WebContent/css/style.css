@@ -1,93 +1,133 @@
-body
-{
-	background-color:white;
+body{
+    background-color: #eee;	
 }
-botton
-{
-
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  weight:50%;
-  border: 1%;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  
- 
-   box-sizing: border-box;
- }
- input {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  font-family:  sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 1%;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
+.mt-100 {
+    margin-top: 0px;
 }
-/--------------
-#menu ul{
-	list-style-type: none;
-	margin: 0 0 20 0;
-	padding: 20px 20px;
-	background-color: #3a5399;
-	text-align: right;
-	color: #fff;
-	
+.mb-100 {
+    margin-bottom: 100px;
 }
 
-.nav>li>a
-{
-	background-color: rgb(58, 83, 153);
-    padding: 25px;
-    color: #fff;
-    margin-top: 25px;
-	float: left;
-	left:30%;
+.icon {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    padding: 7px 8px;
+    border: 2px solid;
+    border-radius: 50%;
 }
 
-a{
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+.header {
+    padding-top: 50px;
+    background-color: #eee;
+    overflow: hidden;
 }
-a:hover{
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-	text-decoration: none;
-}
-.menu-lat{
-    padding: 20px;
-    margin-bottom: 20px;
-    background-color: rgb(58, 83, 153);
+.footer {
+    color: #887;
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
-.menu-lat ul li a{
-	color: #00000;
+.content {
+    position: relative;
+    display: table;
+    width: 100%;
+    min-height: 100vh;
+}
+.pull-middle {
+    /* display: table-cell; */
+    vertical-align: middle;
 }
 
-
-
-footer{
-    background-color: rgb(58, 83, 153);
-    padding: 25px;
-    color: #fff;
-    margin-top: 25px;
+.btn {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.btn-circle {
+    border-radius: 20px;
 }
 
-footer p{
-	margin: 0;
+.input-group input {
+    border: 0;
+    box-shadow: none;
+    padding-right: 30px;
+}
+.input-group input:focus,
+.input-group input:active {
+    outline: 0;
+    box-shadow: none;
+}
+.input-group-btn:last-child>.btn {
+    z-index: 2;
+    margin-left: -18px;   
+    border-radius: 20px;
 }
 
+.phone {
+    position: relative;
+    max-width: 263px;
+    margin: 0 auto;
+    padding: 65px 15px 55px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    background-color: #222;
+    box-shadow: 20px 20px 40px #887;
+}
+
+#logout{
+	text-decoration:none;
+	color: white;
+}
+
+.navbar-brand{
+    padding: 18px 15px; !important
+}
+
+#ola{
+    text-transform: capitalize;
+}
+.navbar-inverse {
+    border-radius: 0 !important;
+}
+#form{
+	margin: 100px 0px 170px 0px;
+}
+.package-table tbody tr:nth-child(odd){background:#FAFAFA;}
+.package-table td{border-top:0px !important; border-right:1px solid #fff !important;}
+.package-table tbody tr:nth-child(even){background:#DFDFDF; }
+.capitalize{
+	text-transform: capitalize;
+}
+.center{
+	text-align: center;
+}
+fieldset.for-panel {
+    background-color: #fcfcfc;
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding:15px 10px;
+    background-color: #d9edf7;
+    border-color: #5cb85c;
+    background-color: #f9fdfd;
+    margin-bottom:12px;
+    margin: 100px 0px 150px 0px;
+}
+fieldset.for-panel legend {
+    background-color: #fafafa;
+    border: 1px solid #5cb85c;
+    border-radius: 5px;
+    color: #5cb85c;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 10px;
+    margin: inherit;
+    padding: 7px;
+    width: auto;
+    background-color: rgba(161, 224, 161, 0.4);
+    margin-bottom: 0;
+}
+.editA{
+    text-decoration: none;
+    color: white;
+}

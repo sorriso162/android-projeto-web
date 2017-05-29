@@ -1,61 +1,8 @@
-body
-{
-	background-color:#3a5399;
+body{
+    background: url(http://mymaplist.com/img/parallax/back.png);
+    background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+}
 
+.vertical-offset-100{
+    padding-top:200px;
 }
-.login-form
-{
-	position:absolute;
-	left:45%;
-	top:30%;
-	border: 1%;
-	box-sizing: border-box;
-	padding: 15px;
-	width: 400px;
-	
-	background-color:white;
-	
-}
-.text-login
-{
-	
-	weight:50%;
-	margin-left:20%;
-	margin-top: -1px;
-    margin-bottom: 20px;
-    font-size: 150%;
-    text-transform: uppercase;
-    
-}
-#btnLogin
-{
-
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  weight:50%;
-  border: 1%;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  
- 
-   box-sizing: border-box;
- }
- input {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  font-family:  sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 1%;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-/--------------
-
