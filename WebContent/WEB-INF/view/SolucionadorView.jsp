@@ -10,7 +10,7 @@
 </div>
 <div class="col-md-2">
 <form action="excluir_solucionador" method="POST">
-	<button type="submit"class="btn btn-danger">Excluir Usuário</button>
+	<button type="submit"class="btn btn-danger">Excluir Solucionador</button>
 	<input type="hidden" value="${view.id}" name="id">
 </form>
 </div>

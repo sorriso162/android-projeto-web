@@ -61,7 +61,7 @@ public class SistemaChamadoLoginController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("login")
+	@RequestMapping("loginForm")
 	String loginForm()
 	{
 		return "login";
@@ -112,7 +112,7 @@ public class SistemaChamadoLoginController {
 						return "redirect:pagina_inicial";
 					}else{
 						System.out.println("usuario e senha invalidos");
-						return "redirect:login";
+						return "redirect:loginForm";
 						}
 	}
 	@RequestMapping("logout")

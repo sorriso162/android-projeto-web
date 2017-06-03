@@ -12,6 +12,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ListaDeChamados;
+import br.usjt.projeto.semestral.Model.TodosOsChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
 import br.usjt.projeto.semestral.Service.ChamadoService;
 import br.usjt.projeto.semestral.Service.UsuarioService;
@@ -43,6 +45,16 @@ public class SistemaChamadoRest {
 		List<ListaDeChamados> lista = null;
 		System.out.println("entrou aqui");
 		lista = cs.selecionaChamadosAbertos();
+		return lista;
+	}
+	@SuppressWarnings("unchecked")
+	@Consumes("Content-Type: application/json")
+	@Produces("Content-Type: application/json")
+	@RequestMapping(method=RequestMethod.GET, value="rest/lista/{chave}")
+	public List<TodosOsChamados> TodosOsChamadosPorChave(@PathVariable String chave) throws IOException, SQLException {
+		List<TodosOsChamados> lista = null;
+		System.out.println(chave);
+		lista = cs.buscaPorChave(chave);
 		return lista;
 	}
 	@Consumes("Content-Type: application/json")

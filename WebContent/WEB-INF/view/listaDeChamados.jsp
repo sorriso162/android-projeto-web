@@ -6,9 +6,10 @@
 <div class="container">
 	<div class="row-fluid">
 		<div class="col-md-9 col-md-offset-1">
-		
-				
-			<h3>Lista de Chamados</h3>
+			
+			<form action="pesquisar_chamados" method="post">
+			<input type="text" class="form-control" name="chave" placeholder="Aperte enter para pesquisar!" >
+			</form>
 		
 <table class="table table-striped table-hover tabPad">
 		<tr>

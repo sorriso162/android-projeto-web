@@ -161,11 +161,11 @@ public class SistemaChamadoController {
 	 * @throws IOException
 	 */
 	//administrador apaga solucionador ------------------------------------------------------------------------------
-	@RequestMapping("apagar_solucionador")
+	@RequestMapping("excluir_solucionador")
 	public String apagarSolucionador(Solucionador usuario) throws IOException
 	{
 		ss.removerSolucionador(usuario);
-		return "lista_de_solucionador";
+		return "redirect:lista_solucionador";
 	}
 	
 	

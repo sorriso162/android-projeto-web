@@ -176,7 +176,6 @@ EntityManager manager;
 						chamado1.setTipo(rs.getString("c.tipo"));
 						chamado1.setNomeSolucionador(rs.getString("s.nome"));
 						chamado1.setNomeUsuario(rs.getString("u.nome"));
-						System.out.println(chamado1.toString());
 						lista.add(chamado1);
 						}
 						
@@ -190,7 +189,7 @@ EntityManager manager;
 	@SuppressWarnings("unchecked")
 	public List<TodosOsChamados> SelecionarChamadosPorChave(String chave) throws IOException
 	{
-		String query = "select c.id,c.descricao,c.dataFim,c.dataInicio,c.status,c.tipo,s.nome,u.nome from chamado c"
+		String query = " select c.id, c.descricao, c.dataFim, c.dataInicio, c.status, c.tipo,s.nome, u.nome from chamado c "
 				+ "inner join usuario u on c.idUsuario = u.idUsuario "
 				+ "left join solucionador s on c.idSolucionador = s.idSolucionador where  c.id like '%"+chave+"%' or u.nome like '%"+chave+"%' or s.nome like '%"+chave+"%'";
 		ArrayList<TodosOsChamados> lista = new ArrayList<>();
@@ -201,7 +200,8 @@ EntityManager manager;
 				{
 					while(rs.next())
 					{	
-						System.out.println("entrou aqui3");
+						
+						System.out.println("Entrou aqui chave");
 						chamado1 = new TodosOsChamados();
 						chamado1.setId(rs.getInt("c.id"));
 						chamado1.setDescricao(rs.getString("c.descricao"));
@@ -210,8 +210,7 @@ EntityManager manager;
 						chamado1.setStatus(rs.getString("c.status"));
 						chamado1.setTipo(rs.getString("c.tipo"));
 						chamado1.setNomeSolucionador(rs.getString("s.nome"));
-						chamado1.setNomeUsuario(rs.getString("u.nome"));
-						System.out.println(chamado1.toString());
+						chamado1.setNomeUsuario(""+rs.getString("u.nome"));
 						lista.add(chamado1);
 						}
 						

@@ -37,8 +37,10 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
-    
- 
 	<tx:annotation-driven />
+	<mvc:interceptors>
+		<bean class="br.usjt.projeto.semestral.Interceptor.AutorizadorInterceptor" />
+	</mvc:interceptors>
+	 <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>
