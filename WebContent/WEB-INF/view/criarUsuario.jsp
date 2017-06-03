@@ -6,7 +6,7 @@
 <div class="container">
 	<div class="row-fluid">
 		<div class="col-md-8 col-md-offset-2">
-<center><h3>Cadastrar Usuário</h3></center>
+<h3 style="text-align:center">Cadastrar Usuário</h3>
 <form action="criar_usuario" method="post" id="form">
   <div class="form-group">
     <label>Nome do Usuário</label>
@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
     <label >CPF do Usuário</label>
-    <input type="text" class="form-control" name="cpf "placeholder="CPF" required>
+    <input type="text" class="form-control" name="cpf"placeholder="CPF" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Senha do Usuário:</label>

@@ -58,6 +58,7 @@ public class ChamadoService implements Serializable{
 		 System.out.println(a.format(cal.getTime()));
 		 String dataFormatada = (a.format(cal.getTime()));
 		 
+		 
 		chamado.setDataInicio(dataFormatada);
 		chamado.setStatus("aberto");
 		System.out.println(chamado.toString());
@@ -117,7 +118,10 @@ public class ChamadoService implements Serializable{
 	{
 		return dao.selecionaMeuChamado(chamado);
 	}
-	
+	public List<TodosOsChamados> buscaPorChave(String chave) throws IOException
+	{
+		return dao.SelecionarChamadosPorChave(chave);
+	}
 	
 	
 }

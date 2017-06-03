@@ -27,6 +27,11 @@ public class Usuario
 	 * 
 	 * @return
 	 */
+	public Usuario(){}
+	public Usuario(String idUsuario)
+	{
+		this.idUsuario = Integer.parseInt(idUsuario);
+	}
 	public int getId() 
 	{
 		return idUsuario;

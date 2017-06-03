@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
     <label >CPF do Solucionador</label>
-    <input type="text" class="form-control" name="cpf "placeholder="CPF" required>
+    <input type="text" class="form-control" name="cpf"placeholder="CPF" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Senha do Solucionador:</label>

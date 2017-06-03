@@ -19,10 +19,12 @@ public class Chamado {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	private int idUsuario;
-
-	private int idSolucionador;
+	@ManyToOne
+	@JoinColumn(name="idUsuario")
+	private Usuario idUsuario;
+	@ManyToOne
+	@JoinColumn(name="idSolucionador")
+	private Solucionador idSolucionador;
 	private String descricao;
 	private String status;
 	private String tipo;
@@ -36,14 +38,14 @@ public class Chamado {
 	 * 
 	 * @return
 	 */
-	public int getIdSolucionador() {
+	public Solucionador getIdSolucionador() {
 		return idSolucionador;
 	}
 	/**
 	 * 
 	 * @param idSolucionador
 	 */
-	public void setIdSolucionador(int idSolucionador) {
+	public void setIdSolucionador(Solucionador idSolucionador) {
 		this.idSolucionador = idSolucionador;
 	}
 	
@@ -136,14 +138,14 @@ public class Chamado {
 	 * 
 	 * @return
 	 */
-	public int getIdUsuario() {
+	public Usuario getIdUsuario() {
 		return idUsuario;
 	}
 	/**
 	 * 
 	 * @param idUsuario
 	 */
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(Usuario idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 	@Override

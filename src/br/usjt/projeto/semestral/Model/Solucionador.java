@@ -20,6 +20,11 @@ public class Solucionador {
 	 * 
 	 * @return
 	 */
+	public Solucionador(){}
+	public Solucionador(String idSolucionador)
+	{
+		this.idSolucionador = Integer.parseInt(idSolucionador);
+	}
 	public int getId() 
 	{
 		return idSolucionador;

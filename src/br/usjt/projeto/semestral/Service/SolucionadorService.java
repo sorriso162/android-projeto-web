@@ -88,4 +88,9 @@ public Solucionador buscaPorCpf(Solucionador solucionador)
 {
 	return dao.selecionarSolucionadorPorCpf(solucionador);
 }
+
+public List<Solucionador> buscaChave(String chave)
+{
+	return dao.procuraSolucionadorPorChave(chave);
+}
 }

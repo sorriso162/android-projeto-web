@@ -21,6 +21,7 @@
 <body>
 <c:set var="tipoUsuario" value="${usuario.tipo}" />
 <c:set var="administrador" value="administrador" />
+<c:set var="solucionador" value="solucionador" />
 <c:set var="usuario1" value="usuario" />
 
     <nav class="navbar navbar-inverse">
@@ -36,8 +37,8 @@
           <a class="navbar-brand" href="pagina_inicial"><span class="label label-success text-capitalize">Sistema de Chamados</span></a>
         </div>
     <div class="collapse navbar-collapse" id="example-1">		
-			
 				<ul class="nav navbar-nav navbar-right">
+							<c:if  test="${tipoUsuario == administrador || tipoUsuario == usuario1}" >
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastrar<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<c:if  test="${tipoUsuario == administrador}" >
@@ -47,16 +48,22 @@
 							<li><a href="fazer_chamado">Chamado</a></li>
 						</ul>
 					</li>
+					</c:if>
 	                <li><button type="button" class="btn btn-success navbar-btn btn-circle"><a id="logout" href="logout">Logout</a></button></li>
 				</ul>
-				<c:if  test="${tipoUsuario == administrador}" >
+				
+				<c:if  test="${tipoUsuario == administrador || tipoUsuario == solucionador}" >
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listar<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-								
+								<c:if  test="${tipoUsuario == administrador}" >
 	    							<li><a href="lista_solucionador">Todos os Solucionadores</a></li>
-	    							<li><a href="lista_de_usuarios">Todos os Usuarios</a></li>
+	    							<li><a href="lista_de_usuarios">Todos os Usuarios</a></li>    							
 	    							<li><a href="lista_chamado">Todos os Chamados</a></li>
+	    						</c:if>
+	    						<c:if  test="${tipoUsuario == solucionador}" >
+	    							<li><a href="chamados_abertos">Chamados Abertos</a>
+	    						</c:if>						
 						</ul>
 					</li>
 				</ul>

@@ -3,6 +3,8 @@ package br.usjt.projeto.semestral.Controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -68,8 +70,33 @@ public class SistemaChamadoRest {
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.POST, value="rest/update")
 	public void atualiza(@RequestBody Chamado chamado) throws IOException
-	{		System.out.println("chegou aqui1");
-		cs.atualizaChamado(chamado);  
+	{		System.out.println("atualiza rest");
+	Chamado chamado1 = new Chamado();
+	chamado1.setId(chamado.getId());
+	chamado1 = cs.selecionaChamado(chamado1);
+	
+	if(chamado.getDescricao() != null)
+	{
+		chamado1.setDescricao(chamado.getDescricao());
+		cs.atualizaChamado(chamado1);
+		
+	}
+	if(chamado.getIdSolucionador()!= null)
+	{
+		chamado1.setIdSolucionador(chamado.getIdSolucionador());
+		cs.atualizaChamado(chamado1);
+	}
+	if(chamado.getStatus().equals("fechado"))
+	{
+		chamado1.setStatus(chamado.getStatus());
+		SimpleDateFormat a = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		 Calendar cal = Calendar.getInstance();
+		 System.out.println(a.format(cal.getTime()));
+		 String dataFormatada = (a.format(cal.getTime()));
+		chamado1.setDateFim(dataFormatada);
+		cs.atualizaChamado(chamado1);
+
+	}
 	}
 	
 	

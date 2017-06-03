@@ -68,6 +68,17 @@ public class UsuarioDao {
 		System.out.println(lista);
 		return (Usuario) lista;
 	}
+	
+	public List<Usuario> procuraUsuarioPorChave(String chave)
+	{
+		System.out.println(chave);
+		String sqlSelect = "select u from Usuario u where u.nome like :chave or u.cpf like :chave";
+		Query query = manager.createQuery(sqlSelect);
+		query.setParameter("chave", "%"+chave+"%");
+		List<Usuario> lista = query.getResultList();
+		System.out.println(lista);
+		return  lista;
+	}
 	/**
 	 * 
 	 * @return

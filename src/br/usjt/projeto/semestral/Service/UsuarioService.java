@@ -103,39 +103,9 @@ public class UsuarioService implements Serializable{
 	}
 	
 	
-	
-	public Usuario buscaRest (Usuario usuario) throws IOException
+	public List<Usuario> buscaChave(String chave)
 	{
-		Gson gson = new Gson();
-		 
-		// converte objetos Java para JSON e retorna JSON como String
-		String json = gson.toJson(usuario);
-		try{
-		String l  = "http://localhost:8080/SistemaChamado/rest";
-		URL url = new URL(l);
-		 HttpURLConnection conn  = (HttpURLConnection) url.openConnection();
-		 
-		 conn.setDoOutput(true);
-		 conn.setRequestProperty("Content-Type", "application/json");
-		 conn.setConnectTimeout(5000);
-		 conn.setReadTimeout(5000);
-         OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-         out.write(json);
-         System.out.println("A url"+out);
-         out.close();
-		 try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-        }
-     catch (Exception e) {
-       e.printStackTrace();
-    }
-} catch (Exception e1) {
-	 e1.printStackTrace();
-}
-		return usuario;	
+		return dao.procuraUsuarioPorChave(chave);
 	}
 	
 }

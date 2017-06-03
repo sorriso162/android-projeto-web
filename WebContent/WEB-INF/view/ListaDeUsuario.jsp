@@ -6,6 +6,10 @@
 <div class="container">
 	<div class="row-fluid">
 		<div class="col-md-8 col-md-offset-2">
+			<h3>Digite o nome do Usuario:</h3><br>
+			<form action="pesquisar_usuario" method="post">
+			<input type="text" class="form-control" name="chave" placeholder="Aperte enter para pesquisar!" >
+			</form>
 			<h3>Lista de Usuários</h3>
 			<table class="table table-striped table-hover tabPad">
 				<tr>

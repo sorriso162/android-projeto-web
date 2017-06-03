@@ -3,7 +3,9 @@ package br.usjt.projeto.semestral.Controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ChamadoView;
+import br.usjt.projeto.semestral.Model.MeusChamados;
 import br.usjt.projeto.semestral.Model.Solucionador;
 import br.usjt.projeto.semestral.Model.Usuario;
 import br.usjt.projeto.semestral.Service.AdministradorService;
@@ -59,7 +62,8 @@ public class SistemaChamadoController {
 		@RequestMapping("criar_usuario")
 		public String criarUsuario(Usuario usuario) throws IOException
 		{
-			
+			usuario.setTipo("usuario");
+			System.out.println(usuario.toString());
 			us.criarUsuario(usuario);
 			return "redirect:lista_de_usuarios";
 		}
@@ -74,14 +78,20 @@ public class SistemaChamadoController {
 		 * @param usuario
 		 * @return
 		 * @throws IOException
+		 * @throws SQLException 
 		 */
 		//administrador apaga usuario   ------------------------------------------------------------------------------
-		@RequestMapping("apagar_usuario")
-		public String apagarUsuario(Usuario usuario) throws IOException
+		@RequestMapping("excluir_usuario")
+		public String apagarUsuario(Usuario usuario) throws IOException, SQLException
 		{
+			List<MeusChamados> lista = cs.meusChamados(usuario);
+			if(lista.size() == 0){
 			us.removerUsuario(usuario);
-			return "lista_de_usuario";
-		}
+			return "redirect:lista_de_usuarios";
+			}else{
+				return"erroDeleteUsuario";
+			}
+			}
 		/**
 		 * 
 		 * @param usuario
@@ -109,6 +119,12 @@ public class SistemaChamadoController {
 			session.setAttribute("listaDeUsuairos", us.selecionarTodosOsUsuarios());
 			return "ListaDeUsuario";
 		}
+		@RequestMapping("pesquisar_usuario")
+		public String pesquisaUsuario(String chave, HttpSession session)
+		{
+			session.setAttribute("listaDeUsuairos", us.buscaChave(chave));
+			return "ListaDeUsuario";
+		}
 		//administrador atualizar usuario      ------------------------------------------------------------------------------
 		@RequestMapping("atualizar_usuario")
 		public String atualizaUsuario(Usuario usuario) throws IOException
@@ -131,6 +147,7 @@ public class SistemaChamadoController {
 		ss.criarSolucionador(usuario);
 		return "redirect:lista_solucionador";
 	}
+	
 	@RequestMapping("cria_solucionador")
 	public String criaSolucionador()
 	{
@@ -181,7 +198,12 @@ public class SistemaChamadoController {
 	{
 		return"ListaDeSolucionadores";
 	}
-	 
+	 @RequestMapping("pesquisar_solucionador")
+	 public String pesquisaSolucionador(String chave, HttpSession session)
+	 {
+		 session.setAttribute("listaDeSolucionadores", ss.buscaChave(chave));
+		 return "ListaDeSolucionadores";
+	 }
 	@RequestMapping("atualizar_solucionador")
 	public String atualizaSolucionador(Solucionador usuario) throws IOException
 	{
@@ -219,6 +241,11 @@ public class SistemaChamadoController {
 		return "redirect:fazer_chamado";
 		}
 	}
+	@RequestMapping("usuario_foi_inserido")
+	public String usuarioInserido()
+	{
+		return "ModalUsuarioInserido";
+	}
 	/**
 	 * 
 	 * @param chamado
@@ -229,8 +256,33 @@ public class SistemaChamadoController {
 	@RequestMapping("atualizar_chamado")
 	public String atualizarChamado(Chamado chamado) throws SQLException, IOException
 	{
+		Chamado chamado1 = new Chamado();
+		chamado1.setId(chamado.getId());
+		chamado1 = cs.selecionaChamado(chamado1);
 		
-		cs.atualizaChamado(chamado);
+
+		if(chamado.getDescricao() != null)
+		{
+			chamado1.setDescricao(chamado.getDescricao());
+			cs.atualizaChamado(chamado1);
+			
+		}
+		if(chamado.getIdSolucionador()!= null)
+		{
+			chamado1.setIdSolucionador(chamado.getIdSolucionador());
+			cs.atualizaChamado(chamado1);
+		}
+		if(chamado.getStatus().equals("fechado"))
+		{
+			chamado1.setStatus(chamado.getStatus());
+			SimpleDateFormat a = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			 Calendar cal = Calendar.getInstance();
+			 System.out.println(a.format(cal.getTime()));
+			 String dataFormatada = (a.format(cal.getTime()));
+			chamado1.setDateFim(dataFormatada);
+			cs.atualizaChamado(chamado1);
+
+		}
 		return "chamado_informacao";
 	}
 	/**
@@ -275,6 +327,12 @@ public class SistemaChamadoController {
 	@RequestMapping("chamado_view")
 	public String meuChamadoView()
 	{
+		return "ChamadoView";
+	}
+	@RequestMapping("pesquisar_chamados")
+	public String buscaChamadoChave(String chave, HttpSession session) throws IOException
+	{
+		session.setAttribute("view", cs.buscaPorChave(chave));
 		return "ChamadoView";
 	}
 	@RequestMapping("chamadoView")
