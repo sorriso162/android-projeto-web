@@ -98,14 +98,17 @@ public class SistemaChamadoRest {
 		chamado1.setIdSolucionador(chamado.getIdSolucionador());
 		cs.atualizaChamado(chamado1);
 	}
-	if(chamado.getStatus() != null && chamado.getStatus().equals("fechado"))
+	if(chamado.getStatus() != null)
 	{
+		if(chamado.getStatus().equals("fechado")){
 		chamado1.setStatus(chamado.getStatus());
 		SimpleDateFormat a = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		 Calendar cal = Calendar.getInstance();
 		 System.out.println(a.format(cal.getTime()));
 		 String dataFormatada = (a.format(cal.getTime()));
 		chamado1.setDateFim(dataFormatada);
+		}
+		chamado1.setStatus(chamado.getStatus());
 		cs.atualizaChamado(chamado1);
 
 	}
