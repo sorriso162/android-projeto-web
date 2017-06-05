@@ -132,8 +132,8 @@ EntityManager manager;
 			{
 				
 				chamado1.setId(result.getInt("id"));
-				chamado1.setDataFim(result.getDate("dataFim"));
-				chamado1.setDateInicio(result.getDate("dataInicio"));
+				chamado1.setDataFim(result.getString("dataFim"));
+				chamado1.setDateInicio(result.getString("dataInicio"));
 				chamado1.setDescricao(result.getString("descricao"));
 				chamado1.setNomeSolucionador(result.getString("s.nome"));
 				chamado1.setNomeUsuario(result.getString("u.nome"));
@@ -221,16 +221,16 @@ EntityManager manager;
 					}
 		return lista;
 	}
-	public List<ListaDeChamados> selecionarTodosOsChamadosEmAberto() throws SQLException, IOException
+	public List<TodosOsChamados> selecionarTodosOsChamadosEmAberto() throws SQLException, IOException
 	{
 		
-		ListaDeChamados chamado = new ListaDeChamados();
+		TodosOsChamados chamado = new TodosOsChamados();
 		chamado.setStatus("aberto");
-		String query = "Select c.id, c.descricao,c.tipo, c.dataInicio,c.dataFim, c.status, u.nome"
-				+ " from chamado c Inner Join usuario u on c.idUsuario = u.idUsuario"
-				+ "   where status = 'aberto'";
-		ArrayList<ListaDeChamados> lista = new ArrayList<>();
-		ListaDeChamados chamado1;
+		String query = "select c.id, c.descricao, c.dataFim, c.dataInicio, c.status, c.tipo, s.nome, u.nome from chamado c "
+				+ "inner join usuario u on c.idUsuario = u.idUsuario "
+				+ "left join solucionador s on c.idSolucionador = s.idSolucionador where status = 'aberto'";
+		ArrayList<TodosOsChamados> lista = new ArrayList<>();
+		TodosOsChamados chamado1;
 		
 		try(PreparedStatement pst = conn.prepareStatement(query);
 				ResultSet rs = pst.executeQuery();)
@@ -238,15 +238,15 @@ EntityManager manager;
 					while(rs.next())
 					{	
 						System.out.println("entrou aqui3");
-						chamado1 = new ListaDeChamados();
+						chamado1 = new TodosOsChamados();
 						chamado1.setId(rs.getInt("c.id"));
-						chamado1.setTipo(rs.getString("c.tipo"));
 						chamado1.setDescricao(rs.getString("c.descricao"));
-						chamado1.setDateInicio(rs.getDate("c.dataInicio"));
-						chamado1.setDataFim(rs.getDate("c.dataFim"));
+						chamado1.setDataFim(rs.getString("c.dataFim"));
+						chamado1.setDateInicio(rs.getString("c.dataInicio"));
 						chamado1.setStatus(rs.getString("c.status"));
-						chamado1.setUsuario(rs.getString("u.nome"));
-						
+						chamado1.setTipo(rs.getString("c.tipo"));
+						chamado1.setNomeSolucionador(rs.getString("s.nome"));
+						chamado1.setNomeUsuario(rs.getString("u.nome"));
 						if(chamado1.getStatus().equals(chamado.getStatus())){
 						lista.add(chamado1);
 						}

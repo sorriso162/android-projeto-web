@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 public class ChamadoView {
 	 private int id;
 	 private String descricao;
-	 private Date dataFim;
-	 private Date dateInicio;
+	 private String dataFim;
+	 private String dateInicio;
 	 private String status;
 	 private String tipo;
 	 private String nomeSolucionador;
@@ -26,16 +26,16 @@ public class ChamadoView {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Date getDataFim() {
+	public String getDataFim() {
 		return dataFim;
 	}
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
-	public Date getDateInicio() {
+	public String getDateInicio() {
 		return dateInicio;
 	}
-	public void setDateInicio(Date dateInicio) {
+	public void setDateInicio(String dateInicio) {
 		this.dateInicio = dateInicio;
 	}
 	public String getStatus() {

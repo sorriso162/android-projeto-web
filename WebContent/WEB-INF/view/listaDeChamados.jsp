@@ -10,6 +10,8 @@
 			<form action="pesquisar_chamados" method="post">
 			<input type="text" class="form-control" name="chave" placeholder="Aperte enter para pesquisar!" >
 			</form>
+	<c:set var="tipoUsuario" value="${usuario.tipo}" />
+	<c:set var="solucionador" value="solucionador" />
 		
 <table class="table table-striped table-hover tabPad">
 		<tr>
@@ -19,7 +21,12 @@
 			<td>Data Início</td>
 			<td>Data de Encerramento</td>
 			<td>Status</td>
+			<c:if test="${tipoUsuario != solucionador}">
 			<td>Nome do Solucionador</td>
+			</c:if>
+			<c:if test="${tipoUsuario == solucionador}">
+			<td class="capitalize center">Ações</td>
+			</c:if>
 		</tr>
 	<c:forEach var="todosChamados" items="${todosChamados}">
 	
@@ -33,7 +40,15 @@
 				<td>${todosChamados.dateInicio}</td>
 				<td>${todosChamados.dataFim}</td>
 				<td>${todosChamados.status}</td>
-				<td class="capitalize center">${todosChamados.nomeSolucionador}
+				<c:if test="${tipoUsuario != solucionador}">
+				<td class="capitalize center">${todosChamados.nomeSolucionador}</td>
+				</c:if>
+				<td><form action="atualizar_chamado" method="post">
+						<input type="hidden" value="${usuario.id}" name="idSolucionador">
+						<input type="hidden" value="${todosChamados.id}" name="id">
+							<button tipe="submit" class="btn btn-success">Atender</button> 
+						</form>
+				</td>
 				</tr>
 				
 	</c:forEach>

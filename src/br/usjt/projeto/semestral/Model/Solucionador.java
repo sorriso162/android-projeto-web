@@ -105,7 +105,7 @@ public class Solucionador {
 	@Override
 	public String toString() 
 	{
-		return "Administrador [id=" + idSolucionador + ", nome=" + nome + ", cpf=" + cpf + ", tipo=" + tipo + "]";
+		return "Solucionador [id=" + idSolucionador + ", nome=" + nome + ", cpf=" + cpf + ", tipo=" + tipo + "]";
 	}
 	
 }

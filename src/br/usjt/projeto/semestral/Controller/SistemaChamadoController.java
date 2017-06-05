@@ -256,11 +256,10 @@ public class SistemaChamadoController {
 	@RequestMapping("atualizar_chamado")
 	public String atualizarChamado(Chamado chamado) throws SQLException, IOException
 	{
+
 		Chamado chamado1 = new Chamado();
 		chamado1.setId(chamado.getId());
 		chamado1 = cs.selecionaChamado(chamado1);
-		
-
 		if(chamado.getDescricao() != null)
 		{
 			chamado1.setDescricao(chamado.getDescricao());
@@ -270,19 +269,24 @@ public class SistemaChamadoController {
 		if(chamado.getIdSolucionador()!= null)
 		{
 			chamado1.setIdSolucionador(chamado.getIdSolucionador());
+			chamado1.setStatus("Em processo");
 			cs.atualizaChamado(chamado1);
 		}
-		if(chamado.getStatus().equals("fechado"))
+		if(chamado.getStatus() != null)
 		{
+			if(chamado.getStatus().equals("fechado")){
 			chamado1.setStatus(chamado.getStatus());
 			SimpleDateFormat a = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			 Calendar cal = Calendar.getInstance();
 			 System.out.println(a.format(cal.getTime()));
 			 String dataFormatada = (a.format(cal.getTime()));
 			chamado1.setDateFim(dataFormatada);
+			}
+			chamado1.setStatus(chamado.getStatus());
 			cs.atualizaChamado(chamado1);
 
 		}
+		
 		return "chamado_informacao";
 	}
 	/**
@@ -342,6 +346,12 @@ public class SistemaChamadoController {
 		System.out.println(cs.chamadoView(chamado));
 		session.setAttribute("view", cs.chamadoView(chamado));
 		return "redirect:chamado_view";
+	}
+	@RequestMapping("chamados_abertos")
+	public String chamadosAbertos(HttpSession session) throws SQLException, IOException
+	{
+		session.setAttribute("todosChamados", cs.selecionaChamadosAbertos());
+		return "redirect:todos_os_chamados";
 	}
 	
 }

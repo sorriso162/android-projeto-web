@@ -41,8 +41,8 @@ public class SistemaChamadoRest {
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.GET, value="rest/lista")
-	public @ResponseBody List<ListaDeChamados> listagemAberta() throws IOException, SQLException {
-		List<ListaDeChamados> lista = null;
+	public @ResponseBody List<TodosOsChamados> listagemAberta() throws IOException, SQLException {
+		List<TodosOsChamados> lista = null;
 		System.out.println("entrou aqui");
 		lista = cs.selecionaChamadosAbertos();
 		return lista;

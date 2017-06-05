@@ -63,6 +63,8 @@
 	    						</c:if>
 	    						<c:if  test="${tipoUsuario == solucionador}" >
 	    							<li><a href="chamados_abertos">Chamados Abertos</a>
+	    							<li><a href="chamados_atendimento">Minha lista de chamados</a>
+	    							<li><a href="historico">Historico</a>
 	    						</c:if>						
 						</ul>
 					</li>

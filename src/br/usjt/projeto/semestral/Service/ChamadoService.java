@@ -105,7 +105,7 @@ public class ChamadoService implements Serializable{
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public List<ListaDeChamados> selecionaChamadosAbertos() throws SQLException, IOException
+	public List<TodosOsChamados> selecionaChamadosAbertos() throws SQLException, IOException
 	{
 		return dao.selecionarTodosOsChamadosEmAberto();
 	}
