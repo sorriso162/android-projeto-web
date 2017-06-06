@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.usjt.projeto.semestral.Model.Chamado;
+import br.usjt.projeto.semestral.Model.ChamadoView;
 import br.usjt.projeto.semestral.Model.ListaDeChamados;
 import br.usjt.projeto.semestral.Model.TodosOsChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
@@ -36,6 +37,17 @@ public class SistemaChamadoRest {
 	{
 		this.cs = cs;
 		this.us = us;
+	}
+	@SuppressWarnings("unchecked")
+	@Consumes("Content-Type: application/json")
+	@Produces("Content-Type: application/json")
+	@RequestMapping(method=RequestMethod.GET, value="rest/um/{chave}")
+	public @ResponseBody ChamadoView MostraChamadoPorId(@PathVariable int chave) throws IOException, SQLException {
+		System.out.println(chave);
+		ChamadoView chamado = new ChamadoView();
+		chamado.setId(chave);
+		System.out.print(cs.selecionaChamadoView(chamado));
+		return cs.selecionaChamadoView(chamado);
 	}
 	@SuppressWarnings("unchecked")
 	@Consumes("Content-Type: application/json")

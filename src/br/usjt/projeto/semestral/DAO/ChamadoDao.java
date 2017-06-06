@@ -118,6 +118,46 @@ EntityManager manager;
 					}
 			
 	}
+	public ChamadoView selecionarChamadoView(int i)
+	{	
+		ChamadoView chamado1  = new ChamadoView();
+		Boolean estado = false;
+		String sqlSelect = "SELECT c.id,c.descricao,c.dataFim,c.dataInicio,c.status,c.tipo,u.nome,s.nome  FROM chamado c INNER JOIN usuario u on c.idUsuario = u.idUsuario "
+				+ "LEFT JOIN solucionador s on s.idSolucionador = c.idSolucionador WHERE c.id = '"+i+"'";
+		try(PreparedStatement pst = conn.prepareStatement(sqlSelect);
+				ResultSet result = pst.executeQuery();)
+		{
+			if(result.first())
+			{
+				
+				chamado1.setId(result.getInt("id"));
+				chamado1.setDataFim(result.getString("dataFim"));
+				chamado1.setDateInicio(result.getString("dataInicio"));
+				chamado1.setDescricao(result.getString("descricao"));
+				chamado1.setNomeSolucionador(result.getString("s.nome"));
+				chamado1.setNomeUsuario(result.getString("u.nome"));
+				chamado1.setTipo(result.getString("tipo"));
+				chamado1.setStatus(result.getString("status"));
+				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			
+	}
+	
+		if(chamado1.getStatus().equals("aberto"))
+		{
+			estado = true;
+		}
+		if(estado = true)
+		{
+			return chamado1;
+		}	else	{
+						return null;
+					}
+			
+	}
+	
 	
 	public ChamadoView selecionaMeuChamado(ChamadoView chamado) throws SQLException, IOException
 	{

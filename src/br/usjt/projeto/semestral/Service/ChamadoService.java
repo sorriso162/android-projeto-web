@@ -90,6 +90,10 @@ public class ChamadoService implements Serializable{
 	{
 		return dao.selecionarChamado(chamado.getId());
 	}
+	public ChamadoView selecionaChamadoView(ChamadoView chamado)
+	{
+		return dao.selecionarChamadoView(chamado.getId());
+	}
 	/**
 	 * 
 	 * @return
