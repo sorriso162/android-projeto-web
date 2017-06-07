@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import br.usjt.projeto.semestral.DAO.ChamadoDao;
 import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ChamadoView;
-import br.usjt.projeto.semestral.Model.ListaDeChamados;
 import br.usjt.projeto.semestral.Model.MeusChamados;
+import br.usjt.projeto.semestral.Model.Solucionador;
 import br.usjt.projeto.semestral.Model.TodosOsChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
 
@@ -127,5 +127,13 @@ public class ChamadoService implements Serializable{
 		return dao.SelecionarChamadosPorChave(chave);
 	}
 	
+	public List<TodosOsChamados> SelecionarTodosChamadosDoSolucionador(Chamado solucionador) throws IOException
+	{
+		return dao.SelecionarTodosChamadosDoSolucionador(solucionador);
+	}
+	public List<TodosOsChamados> selecionaHistorico(Chamado chamado) throws SQLException, IOException
+	{
+		return dao.selecionarTodosOsChamadosFechados(chamado);
+	}
 	
 }

@@ -5,14 +5,11 @@ package br.usjt.projeto.semestral.DAO;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,8 +21,8 @@ import org.springframework.stereotype.Repository;
 
 import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ChamadoView;
-import br.usjt.projeto.semestral.Model.ListaDeChamados;
 import br.usjt.projeto.semestral.Model.MeusChamados;
+import br.usjt.projeto.semestral.Model.Solucionador;
 import br.usjt.projeto.semestral.Model.TodosOsChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
 
@@ -35,7 +32,11 @@ Connection conn;
 	
 @PersistenceContext
 EntityManager manager;
-	
+	/**
+	 * 
+	 * @param ds
+	 * @throws IOException
+	 */
 	@Autowired
 	public ChamadoDao(DataSource ds) throws IOException{
 		try {
@@ -55,25 +56,7 @@ EntityManager manager;
 	
 	public void criarChamado(Chamado chamado) throws SQLException, IOException, ParseException
 	{
-		
-		
-		
 		manager.persist(chamado);
-		/*String sqlInsert = " insert into chamado (idUsuario,id,descricao,dataInicio,dataFim,tipo,status) values(?,?,?,?,?,?,?)";
-		try(PreparedStatement stm = conn.prepareStatement(sqlInsert);)
-		{
-			stm.setInt(1, chamado.getIdUsuario());
-			stm.setInt(2, chamado.getId());
-			stm.setString(3, chamado.getDescricao());
-			stm.setString(4, chamado.getDataInicio());
-			stm.setString(5, chamado.getDateFim());
-			stm.setString(6, chamado.getTipo());
-			stm.setString(7, chamado.getStatus());
-			stm.executeUpdate();
-		}	catch(SQLException e){
-			e.printStackTrace();
-		}
-	*/
 	}
 	
 	/**
@@ -118,6 +101,11 @@ EntityManager manager;
 					}
 			
 	}
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public ChamadoView selecionarChamadoView(int i)
 	{	
 		ChamadoView chamado1  = new ChamadoView();
@@ -157,7 +145,13 @@ EntityManager manager;
 					}
 			
 	}
-	
+	/**
+	 * 
+	 * @param chamado
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	
 	public ChamadoView selecionaMeuChamado(ChamadoView chamado) throws SQLException, IOException
 	{
@@ -226,12 +220,58 @@ EntityManager manager;
 					}
 		return lista;
 	}
+	/**
+	 * 
+	 * @param solucionador
+	 * @return
+	 * @throws IOException
+	 */
+	public List<TodosOsChamados> SelecionarTodosChamadosDoSolucionador(Chamado solucionador) throws IOException
+	{
+		String query = " select c.id,c.descricao,c.dataFim,c.dataInicio,c.status,c.tipo,s.nome,u.nome from chamado c "
+				+ "inner join usuario u on c.idUsuario = u.idUsuario "
+				+ "left join solucionador s on c.idSolucionador = s.idSolucionador where s.idSolucionador = '"+solucionador.getIdSolucionador().getId()+"' and c.status = 'Em processo'";
+		ArrayList<TodosOsChamados> lista = new ArrayList<>();
+		TodosOsChamados chamado1;
+		
+		try(PreparedStatement pst = conn.prepareStatement(query);
+				ResultSet rs = pst.executeQuery();)
+				{
+					while(rs.next())
+					{	
+						System.out.println("entrou aqui3");
+						chamado1 = new TodosOsChamados();
+						chamado1.setId(rs.getInt("c.id"));
+						chamado1.setDescricao(rs.getString("c.descricao"));
+						chamado1.setDataFim(rs.getString("c.dataFim"));
+						chamado1.setDateInicio(rs.getString("c.dataInicio"));
+						chamado1.setStatus(rs.getString("c.status"));
+						chamado1.setTipo(rs.getString("c.tipo"));
+						chamado1.setNomeSolucionador(rs.getString("s.nome"));
+						chamado1.setNomeUsuario(rs.getString("u.nome"));
+						lista.add(chamado1);
+						}
+						
+				}catch(SQLException e)
+					{
+						e.printStackTrace();
+						throw new IOException(e);
+					}
+		return lista;
+	}
+	
+	/**
+	 * 
+	 * @param chave
+	 * @return
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unchecked")
 	public List<TodosOsChamados> SelecionarChamadosPorChave(String chave) throws IOException
 	{
 		String query = " select c.id, c.descricao, c.dataFim, c.dataInicio, c.status, c.tipo,s.nome, u.nome from chamado c "
 				+ "inner join usuario u on c.idUsuario = u.idUsuario "
-				+ "left join solucionador s on c.idSolucionador = s.idSolucionador where  c.id like '%"+chave+"%' or u.nome like '%"+chave+"%' or s.nome like '%"+chave+"%'";
+				+ "left join solucionador s on c.idSolucionador = s.idSolucionador where  c.id like '%"+chave+"%' or u.nome like '%"+chave+"%' or s.nome like '%"+chave+"%' or c.status like '%"+chave+"'";
 		ArrayList<TodosOsChamados> lista = new ArrayList<>();
 		TodosOsChamados chamado1;
 		
@@ -261,6 +301,12 @@ EntityManager manager;
 					}
 		return lista;
 	}
+	/**
+	 * 
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	public List<TodosOsChamados> selecionarTodosOsChamadosEmAberto() throws SQLException, IOException
 	{
 		
@@ -298,14 +344,65 @@ EntityManager manager;
 					}
 		return lista;
 	}
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public List<TodosOsChamados> selecionarTodosOsChamadosFechados(Chamado c) throws SQLException, IOException
+	{
+		
+		
+		TodosOsChamados chamado = new TodosOsChamados();
+		chamado.setStatus("aberto");
+		String query = "select c.id, c.descricao, c.dataFim, c.dataInicio, c.status, c.tipo, s.nome, u.nome from chamado c "
+				+ "inner join usuario u on c.idUsuario = u.idUsuario "
+				+ "left join solucionador s on c.idSolucionador = s.idSolucionador where s.idSolucionador = '"+c.getIdSolucionador().getId()+"' and c.status = 'fechado'";
+		ArrayList<TodosOsChamados> lista = new ArrayList<>();
+		TodosOsChamados chamado1;
+		
+		try(PreparedStatement pst = conn.prepareStatement(query);
+				ResultSet rs = pst.executeQuery();)
+				{
+					while(rs.next())
+					{	
+						System.out.println("entrou aqui3");
+						chamado1 = new TodosOsChamados();
+						chamado1.setId(rs.getInt("c.id"));
+						chamado1.setDescricao(rs.getString("c.descricao"));
+						chamado1.setDataFim(rs.getString("c.dataFim"));
+						chamado1.setDateInicio(rs.getString("c.dataInicio"));
+						chamado1.setStatus(rs.getString("c.status"));
+						chamado1.setTipo(rs.getString("c.tipo"));
+						chamado1.setNomeSolucionador(rs.getString("s.nome"));
+						chamado1.setNomeUsuario(rs.getString("u.nome"));
+						
+						lista.add(chamado1);
+						
+						}
+				}catch(SQLException e)
+					{
+						e.printStackTrace();
+						throw new IOException(e);
+					}
+		return lista;
+	}
+	/**
+	 * 
+	 * @param usuario
+	 * @return
+	 * @throws SQLException
+	 * @throws IOException
+	 */
 	public List<MeusChamados> meusChamados(Usuario usuario) throws SQLException, IOException
 	{
-		System.out.println(usuario.toString());
 		MeusChamados chamado = new MeusChamados();
 		chamado.setIdUsuario(usuario.getId());
 		String query = "Select c.id, c.descricao, c.tipo, c.dataInicio,c.dataFim, c.status, u.nome, c.idUsuario"
 				+ " from chamado c Inner Join usuario u on c.idUsuario = u.idUsuario  left join solucionador s on s.idSolucionador = c.idSolucionador"
-				+ "   where c.idUsuario = '"+usuario.getId()+"'";
+				+ "   where c.idUsuario = '"+usuario.getId()+"' order by status";
 		ArrayList<MeusChamados> lista = new ArrayList<>();
 		MeusChamados chamado1;
 		

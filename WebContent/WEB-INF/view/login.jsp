@@ -30,10 +30,10 @@
 			    	<form accept-charset="UTF-8" role="form" method="post" action="fazer_login">
                     <fieldset>
 			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="Digite o CPF" type="text" name="cpf">
+			    		    <input class="form-control" placeholder="Digite o CPF" type="text" name="cpf" required>
 			    		</div>
 			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Digite a Senha" type="password" name="senha">
+			    			<input class="form-control" placeholder="Digite a Senha" type="password" name="senha" required>
 			    		</div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Logar">
 			    	</fieldset>

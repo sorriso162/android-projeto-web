@@ -20,6 +20,7 @@ import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ChamadoView;
 import br.usjt.projeto.semestral.Model.MeusChamados;
 import br.usjt.projeto.semestral.Model.Solucionador;
+import br.usjt.projeto.semestral.Model.TodosOsChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
 import br.usjt.projeto.semestral.Service.AdministradorService;
 import br.usjt.projeto.semestral.Service.ChamadoService;
@@ -63,7 +64,6 @@ public class SistemaChamadoController {
 		public String criarUsuario(Usuario usuario) throws IOException
 		{
 			usuario.setTipo("usuario");
-			System.out.println(usuario.toString());
 			us.criarUsuario(usuario);
 			return "redirect:lista_de_usuarios";
 		}
@@ -115,7 +115,6 @@ public class SistemaChamadoController {
 		public String listarUsuarios(HttpSession session) throws IOException
 		{
 			
-			System.out.println("Todos Os usuairos:  "+ us.selecionarTodosOsUsuarios());
 			session.setAttribute("listaDeUsuairos", us.selecionarTodosOsUsuarios());
 			return "ListaDeUsuario";
 		}
@@ -174,7 +173,6 @@ public class SistemaChamadoController {
 	@RequestMapping("solucionadorView")
 	public String selecionarSolucionador(Solucionador usuario, HttpSession session) throws IOException
 	{
-		System.out.println("Solucionador: "+ ss.selecionarusuario(usuario));
 		session.setAttribute("view", ss.selecionarusuario(usuario));
 		
 		return "redirect:solucionador_informacao";
@@ -189,7 +187,6 @@ public class SistemaChamadoController {
 	@RequestMapping("lista_solucionador")
 	public String listarSolucionadores(HttpSession session) throws IOException
 	{
-		System.out.println(ss.selecionarTodosOsUsuarios());
 		session.setAttribute("listaDeSolucionadores", ss.selecionarTodosOsUsuarios());
 		return "redirect:todos_os_solucionadores";
 	}
@@ -236,7 +233,6 @@ public class SistemaChamadoController {
 		if (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7){
 			return"redirect:insere_erro_modal";
 		}else{
-		System.out.println("criando chamado"+chamado.toString());
 		cs.criarChamado(chamado);
 		return "redirect:fazer_chamado";
 		}
@@ -254,9 +250,10 @@ public class SistemaChamadoController {
 	 * @throws IOException 
 	 */
 	@RequestMapping("atualizar_chamado")
-	public String atualizarChamado(Chamado chamado) throws SQLException, IOException
+	public String atualizarChamado(Chamado chamado, HttpSession session) throws SQLException, IOException
 	{
 
+		
 		Chamado chamado1 = new Chamado();
 		chamado1.setId(chamado.getId());
 		chamado1 = cs.selecionaChamado(chamado1);
@@ -277,9 +274,8 @@ public class SistemaChamadoController {
 			if(chamado.getStatus().equals("fechado")){
 			chamado1.setStatus(chamado.getStatus());
 			SimpleDateFormat a = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-			 Calendar cal = Calendar.getInstance();
-			 System.out.println(a.format(cal.getTime()));
-			 String dataFormatada = (a.format(cal.getTime()));
+			Calendar cal = Calendar.getInstance();
+			String dataFormatada = (a.format(cal.getTime()));
 			chamado1.setDateFim(dataFormatada);
 			}
 			chamado1.setStatus(chamado.getStatus());
@@ -287,7 +283,38 @@ public class SistemaChamadoController {
 
 		}
 		
-		return "chamado_informacao";
+		
+		if(chamado1.getStatus().equals("Em processo")){
+			session.setAttribute("todosChamado", cs.SelecionarTodosChamadosDoSolucionador(chamado1));
+		return "redirect:solucionadorChamado";
+		}else{
+			session.setAttribute("todosChamado", cs.selecionaHistorico(chamado1));
+			return "redirect:historico";
+		}
+	}
+	@RequestMapping("historicoDoSolucionador")
+	public String historicoDoSolucionador (HttpSession session, Chamado chamado) throws SQLException, IOException{
+		session.setAttribute("todosChamado", cs.selecionaHistorico(chamado));
+		return "redirect:historico";
+	}
+	
+	@RequestMapping("historico")
+	public String historico()
+	{
+		return "historicoSol";
+	}
+	
+	@RequestMapping("chamadosDoSolucionador")
+	public String chamadosDoSolucionador(HttpSession session, Chamado chamado) throws IOException
+	{
+		session.setAttribute("todosChamado", cs.SelecionarTodosChamadosDoSolucionador(chamado));
+		return "redirect:solucionadorChamado";
+	}
+	
+	@RequestMapping("solucionadorChamado")
+	public String solucionadorChamado()
+	{
+		return "solucionadorChamados";
 	}
 	/**
 	 * 
@@ -324,7 +351,6 @@ public class SistemaChamadoController {
 	@RequestMapping("lista_chamado")
 	public String listarChamados(HttpSession session) throws IOException
 	{
-		System.out.println("sessao"+cs.selecionaTodosOsChamados());
 		session.setAttribute("todosChamados",cs.selecionaTodosOsChamados());
 		return "redirect:todos_os_chamados";
 	}
@@ -336,14 +362,13 @@ public class SistemaChamadoController {
 	@RequestMapping("pesquisar_chamados")
 	public String buscaChamadoChave(String chave, HttpSession session) throws IOException
 	{
-		session.setAttribute("view", cs.buscaPorChave(chave));
-		return "ChamadoView";
+		List<TodosOsChamados> lista = cs.buscaPorChave(chave);
+		session.setAttribute("todosChamados", lista);
+		return "redirect:todos_os_chamados";
 	}
 	@RequestMapping("chamadoView")
 	public String chamadoView( ChamadoView chamado,HttpSession session) throws SQLException, IOException
 	{
-		System.out.println(chamado.toString());
-		System.out.println(cs.chamadoView(chamado));
 		session.setAttribute("view", cs.chamadoView(chamado));
 		return "redirect:chamado_view";
 	}
@@ -353,5 +378,4 @@ public class SistemaChamadoController {
 		session.setAttribute("todosChamados", cs.selecionaChamadosAbertos());
 		return "redirect:todos_os_chamados";
 	}
-	
 }

@@ -43,12 +43,14 @@
 				<c:if test="${tipoUsuario != solucionador}">
 				<td class="capitalize center">${todosChamados.nomeSolucionador}</td>
 				</c:if>
+				<c:if test="${tipoUsuario == solucionador}">
 				<td><form action="atualizar_chamado" method="post">
 						<input type="hidden" value="${usuario.id}" name="idSolucionador">
 						<input type="hidden" value="${todosChamados.id}" name="id">
 							<button tipe="submit" class="btn btn-success">Atender</button> 
 						</form>
 				</td>
+				</c:if>
 				</tr>
 				
 	</c:forEach>

@@ -63,8 +63,6 @@
 	    						</c:if>
 	    						<c:if  test="${tipoUsuario == solucionador}" >
 	    							<li><a href="chamados_abertos">Chamados Abertos</a>
-	    							<li><a href="chamados_atendimento">Minha lista de chamados</a>
-	    							<li><a href="historico">Historico</a>
 	    						</c:if>						
 						</ul>
 					</li>
@@ -75,7 +73,17 @@
 		<input   type="hidden" value="${usuario.id}" name="id"/>
 		<input type="submit" id="logout" class="span6 btn-link"value="meus chamados">
   	</form>
-</c:if>
+  	</c:if>
+  	<c:if test="${tipoUsuario == solucionador}">
+  	<form  class="btn btn-success navbar-btn btn-circle" action="chamadosDoSolucionador" method="post">
+	   <input type="hidden" value="${usuario.id}" name="idSolucionador"/>
+	   <input type="submit" id="logout" class="span6 btn-link" value="Minha lista de chamados" />
+	  </form>
+	  <form  class="btn btn-success navbar-btn btn-circle" action="historicoDoSolucionador" method="post">
+	   <input type="hidden" value="${usuario.id}" name="idSolucionador"/>
+	   <input type="submit" id="logout" class="span6 btn-link" value="Meu historico" />
+	  </form>
+	</c:if>
 		</div><!-- /.navbar-collapse -->
 		
       </div>
