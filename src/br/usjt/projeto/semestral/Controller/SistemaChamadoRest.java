@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.usjt.projeto.semestral.Model.Chamado;
 import br.usjt.projeto.semestral.Model.ChamadoView;
-import br.usjt.projeto.semestral.Model.ListaDeChamados;
 import br.usjt.projeto.semestral.Model.TodosOsChamados;
 import br.usjt.projeto.semestral.Model.Usuario;
 import br.usjt.projeto.semestral.Service.ChamadoService;
@@ -38,7 +37,6 @@ public class SistemaChamadoRest {
 		this.cs = cs;
 		this.us = us;
 	}
-	@SuppressWarnings("unchecked")
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.GET, value="rest/um/{chave}")
@@ -49,7 +47,6 @@ public class SistemaChamadoRest {
 		System.out.print(cs.selecionaChamadoView(chamado));
 		return cs.selecionaChamadoView(chamado);
 	}
-	@SuppressWarnings("unchecked")
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.GET, value="rest/lista")
@@ -59,7 +56,6 @@ public class SistemaChamadoRest {
 		lista = cs.selecionaChamadosAbertos();
 		return lista;
 	}
-	@SuppressWarnings("unchecked")
 	@Consumes("Content-Type: application/json")
 	@Produces("Content-Type: application/json")
 	@RequestMapping(method=RequestMethod.GET, value="rest/lista/{chave}")
@@ -98,7 +94,7 @@ public class SistemaChamadoRest {
 	Chamado chamado1 = new Chamado();
 	chamado1.setId(chamado.getId());
 	chamado1 = cs.selecionaChamado(chamado1);
-	
+	//asdasd
 	if(chamado.getDescricao() != null)
 	{
 		chamado1.setDescricao(chamado.getDescricao());
